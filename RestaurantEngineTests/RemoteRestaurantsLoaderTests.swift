@@ -7,7 +7,17 @@
 
 import XCTest
 
-class RemoteRestaurantsLoader { }
+class RemoteRestaurantsLoader {
+    private let client: HTTPClient
+    
+    init(client: HTTPClient) {
+        self.client = client
+    }
+    
+    func load(url: URL) {
+        client.requestedURL = url
+    }
+}
 
 class HTTPClient {
     var requestedURL: URL?
@@ -16,8 +26,18 @@ class HTTPClient {
 class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataUponCreation() {
         let client = HTTPClient()
-        _ = RemoteRestaurantsLoader()
+        _ = RemoteRestaurantsLoader(client: client)
         
         XCTAssertNil(client.requestedURL)
+    }
+    
+    func test_load_requestsDataFromURL() {
+        let client = HTTPClient()
+        let sut = RemoteRestaurantsLoader(client: client)
+        let url = URL(string: "https://any-url.com")!
+        
+        sut.load(url: url)
+        
+        XCTAssertEqual(client.requestedURL, url)
     }
 }
