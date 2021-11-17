@@ -33,8 +33,8 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     }
     
     func test_load_requestsDataFromURL() {
-        let (sut, client) = makeSUT()
         let url = URL(string: "https://any-url.com")!
+        let (sut, client) = makeSUT(url: url)
         
         sut.load()
         
@@ -42,8 +42,8 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     }
     
     func test_loadTwice_requestsDataFromURLTwice() {
-        let (sut, cliet) = makeSUT()
         let url = URL(string: "https://any-url.com")!
+        let (sut, cliet) = makeSUT(url: url)
         
         sut.load()
         sut.load()
