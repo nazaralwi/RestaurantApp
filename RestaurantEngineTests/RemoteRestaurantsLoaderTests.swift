@@ -38,10 +38,10 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         client.error = NSError(domain: "error", code: 0)
         
-        var capturedError: RemoteRestaurantsLoader.Error?
-        sut.load { error in capturedError = error }
+        var capturedError = [RemoteRestaurantsLoader.Error]()
+        sut.load { error in capturedError.append(error) }
         
-        XCTAssertEqual(capturedError, .connectivity)
+        XCTAssertEqual(capturedError, [.connectivity])
     }
     
     // MARK: - Helpers
