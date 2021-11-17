@@ -19,12 +19,8 @@ class RemoteRestaurantsLoader {
     }
 }
 
-class HTTPClient {
-    var requestedURL: URL?
-    
-    func get(from url: URL) {
-        requestedURL = url
-    }
+protocol HTTPClient {
+    func get(from url: URL)
 }
 
 class RemoteRestaurantsLoaderTests: XCTestCase {
@@ -52,7 +48,9 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     }
     
     private class HTTPClientSpy: HTTPClient {
-        override func get(from url: URL) {
+        var requestedURL: URL?
+
+        func get(from url: URL) {
             requestedURL = url
         }
     }
