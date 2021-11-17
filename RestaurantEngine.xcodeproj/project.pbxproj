@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D42ABCF2743AD3C009A9E76 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
 		3D42ABE52743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42ABE42743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift */; };
+		3D806D8C274516630072B8A0 /* RemoteRestaurantsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +26,7 @@
 		3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D42ABCE2743AD3C009A9E76 /* RestaurantEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D42ABE42743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantsLoaderTests.swift; sourceTree = "<group>"; };
+		3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantsLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 		3D42ABC82743AD3B009A9E76 /* RestaurantEngine */ = {
 			isa = PBXGroup;
 			children = (
+				3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */,
 			);
 			path = RestaurantEngine;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				TargetAttributes = {
 					3D42ABC52743AD3B009A9E76 = {
 						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
 					};
 					3D42ABCD2743AD3C009A9E76 = {
 						CreatedOnToolsVersion = 13.0;
@@ -188,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D806D8C274516630072B8A0 /* RemoteRestaurantsLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +339,7 @@
 		3D42ABD92743AD3C009A9E76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -354,6 +360,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -361,6 +368,7 @@
 		3D42ABDA2743AD3C009A9E76 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -388,6 +396,7 @@
 		3D42ABDC2743AD3C009A9E76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -410,6 +419,7 @@
 		3D42ABDD2743AD3C009A9E76 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
