@@ -25,19 +25,25 @@ class HTTPClient {
 
 class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_init_doesNotRequestDataUponCreation() {
-        let client = HTTPClient()
-        _ = RemoteRestaurantsLoader(client: client)
+        let (_, client) = makeSUT()
         
         XCTAssertNil(client.requestedURL)
     }
     
     func test_load_requestsDataFromURL() {
-        let client = HTTPClient()
-        let sut = RemoteRestaurantsLoader(client: client)
+        let (sut, client) = makeSUT()
         let url = URL(string: "https://any-url.com")!
         
         sut.load(url: url)
         
         XCTAssertEqual(client.requestedURL, url)
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSUT() -> (sut: RemoteRestaurantsLoader, client: HTTPClient) {
+        let client = HTTPClient()
+        let sut = RemoteRestaurantsLoader(client: client)
+        return (sut, client)
     }
 }
