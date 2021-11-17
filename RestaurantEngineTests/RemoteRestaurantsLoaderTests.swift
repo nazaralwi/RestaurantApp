@@ -45,9 +45,15 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT() -> (sut: RemoteRestaurantsLoader, client: HTTPClient) {
-        let client = HTTPClient()
+    private func makeSUT() -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
         let sut = RemoteRestaurantsLoader(client: client)
         return (sut, client)
+    }
+    
+    private class HTTPClientSpy: HTTPClient {
+        override func get(from url: URL) {
+            requestedURL = url
+        }
     }
 }
