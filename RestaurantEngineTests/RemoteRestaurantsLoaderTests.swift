@@ -14,7 +14,7 @@ class RemoteRestaurantsLoader {
         self.client = client
     }
     
-    func load(url: URL) {
+    func load(from url: URL) {
         client.get(from: url)
     }
 }
@@ -34,7 +34,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         let url = URL(string: "https://any-url.com")!
         
-        sut.load(url: url)
+        sut.load(from: url)
         
         XCTAssertEqual(client.requestedURL, url)
     }
