@@ -15,12 +15,16 @@ class RemoteRestaurantsLoader {
     }
     
     func load(url: URL) {
-        client.requestedURL = url
+        client.get(from: url)
     }
 }
 
 class HTTPClient {
     var requestedURL: URL?
+    
+    func get(from url: URL) {
+        requestedURL = url
+    }
 }
 
 class RemoteRestaurantsLoaderTests: XCTestCase {
