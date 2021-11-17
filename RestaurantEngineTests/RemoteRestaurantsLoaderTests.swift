@@ -11,18 +11,24 @@ class RemoteRestaurantsLoader {
     private let url: URL
     private let client: HTTPClient
     
+    enum Error: Swift.Error {
+        case connectivity
+    }
+    
     init(url: URL, client: HTTPClient) {
         self.url = url
         self.client = client
     }
     
-    func load() {
-        client.get(from: url)
+    func load(completion: @escaping (Error) -> Void = { _ in }) {
+        client.get(from: url) { error in
+            completion(.connectivity)
+        }
     }
 }
 
 protocol HTTPClient {
-    func get(from url: URL)
+    func get(from url: URL, completion: @escaping (Error) -> Void)
 }
 
 class RemoteRestaurantsLoaderTests: XCTestCase {
@@ -51,6 +57,16 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         XCTAssertEqual(cliet.requestedURLs, [url, url])
     }
     
+    func test_load_deliversConnectivityErrorOnClientError() {
+        let (sut, client) = makeSUT()
+        client.error = NSError(domain: "error", code: 0)
+        
+        var capturedError: RemoteRestaurantsLoader.Error?
+        sut.load { error in capturedError = error }
+        
+        XCTAssertEqual(capturedError, .connectivity)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://any-url.com")!) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
@@ -61,8 +77,12 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: HTTPClient {
         var requestedURLs = [URL]()
+        var error: Error?
 
-        func get(from url: URL) {
+        func get(from url: URL, completion: (Error) -> Void) {
+            if let error = error {
+                completion(error)
+            }
             requestedURLs.append(url)
         }
     }
