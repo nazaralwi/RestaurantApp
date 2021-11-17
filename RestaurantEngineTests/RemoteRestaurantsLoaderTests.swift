@@ -8,13 +8,15 @@
 import XCTest
 
 class RemoteRestaurantsLoader {
+    private let url: URL
     private let client: HTTPClient
     
-    init(client: HTTPClient) {
+    init(url: URL, client: HTTPClient) {
+        self.url = url
         self.client = client
     }
     
-    func load(from url: URL) {
+    func load() {
         client.get(from: url)
     }
 }
@@ -34,16 +36,16 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         let url = URL(string: "https://any-url.com")!
         
-        sut.load(from: url)
+        sut.load()
         
         XCTAssertEqual(client.requestedURL, url)
     }
     
     // MARK: - Helpers
     
-    private func makeSUT() -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "https://any-url.com")!) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = RemoteRestaurantsLoader(client: client)
+        let sut = RemoteRestaurantsLoader(url: url, client: client)
         return (sut, client)
     }
     
