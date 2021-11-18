@@ -36,10 +36,12 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     func test_load_deliversConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
-        client.error = NSError(domain: "error", code: 0)
         
         var capturedError = [RemoteRestaurantsLoader.Error]()
         sut.load { error in capturedError.append(error) }
+        
+        let clientError = NSError(domain: "error", code: 0)
+        client.completions[0](clientError)
         
         XCTAssertEqual(capturedError, [.connectivity])
     }
@@ -54,12 +56,10 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: HTTPClient {
         var requestedURLs = [URL]()
-        var error: Error?
+        var completions = [(Error) -> Void]()
 
-        func get(from url: URL, completion: (Error) -> Void) {
-            if let error = error {
-                completion(error)
-            }
+        func get(from url: URL, completion: @escaping (Error) -> Void) {
+            completions.append(completion)
             requestedURLs.append(url)
         }
     }
