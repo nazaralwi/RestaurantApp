@@ -21,7 +21,7 @@ public class RemoteRestaurantsLoader {
         self.client = client
     }
     
-    public func load(completion: @escaping (Error) -> Void = { _ in }) {
+    public func load(completion: @escaping (Error) -> Void) {
         client.get(from: url) { error, response in
             if response != nil {
                 completion(.invalidData)
