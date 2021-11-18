@@ -41,7 +41,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         sut.load { error in capturedError.append(error) }
         
         let clientError = NSError(domain: "error", code: 0)
-        client.completion(with: clientError)
+        client.complete(with: clientError)
         
         XCTAssertEqual(capturedError, [.connectivity])
     }
@@ -52,7 +52,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         var capturedError = [RemoteRestaurantsLoader.Error]()
         sut.load { error in capturedError.append(error) }
         
-        client.completion(withStatusCode: 400)
+        client.complete(withStatusCode: 400)
         
         XCTAssertEqual(capturedError, [.invalidData])
     }
@@ -76,11 +76,11 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
             messages.append((url, completion))
         }
         
-        func completion(with error: Error, at index: Int = 0) {
+        func complete(with error: Error, at index: Int = 0) {
             messages[index].completion(error, nil)
         }
         
-        func completion(withStatusCode code: Int, at index: Int = 0) {
+        func complete(withStatusCode code: Int, at index: Int = 0) {
             let response = HTTPURLResponse(
                 url: requestedURLs[index],
                 statusCode: code,
