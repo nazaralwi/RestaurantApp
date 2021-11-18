@@ -36,7 +36,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     func test_load_deliversConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
-        
+                
         var capturedError = [RemoteRestaurantsLoader.Error]()
         sut.load { error in capturedError.append(error) }
         
@@ -49,12 +49,16 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
         
-        var capturedError = [RemoteRestaurantsLoader.Error]()
-        sut.load { error in capturedError.append(error) }
+        let samples = [199, 201, 300, 400, 500]
         
-        client.complete(withStatusCode: 400)
-        
-        XCTAssertEqual(capturedError, [.invalidData])
+        samples.enumerated().forEach { index, code in
+            var capturedError = [RemoteRestaurantsLoader.Error]()
+            sut.load { error in capturedError.append(error) }
+            
+            client.complete(withStatusCode: code, at: index)
+            
+            XCTAssertEqual(capturedError, [.invalidData])
+        }
     }
     
     // MARK: - Helpers
