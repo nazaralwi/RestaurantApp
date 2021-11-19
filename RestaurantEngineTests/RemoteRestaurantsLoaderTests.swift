@@ -76,9 +76,6 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
         
-        var capturedResults = [RemoteRestaurantsLoader.Result]()
-        sut.load { result in capturedResults.append(result) }
-        
         let item1 = RestaurantItem(
             id: "any id",
             name: "any name",
@@ -98,10 +95,10 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         
         let itemsJSON = ["restaurants": [item1JSON]]
         
-        let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
-        client.complete(withStatusCode: 200, data: json)
-        
-        XCTAssertEqual(capturedResults, [.success([item1])])
+        expect(sut, toCompleWith: .success([item1]), when: {
+            let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+            client.complete(withStatusCode: 200, data: json)
+        })
     }
     
     // MARK: - Helpers
