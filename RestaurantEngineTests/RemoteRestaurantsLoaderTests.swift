@@ -91,7 +91,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
             "id": item1.id,
             "name": item1.name,
             "description": item1.description,
-            "pictureId": item1.pictureId,
+            "pictureId": "\(item1.pictureId)",
             "city": item1.city,
             "rating": item1.rating
         ] as [String : Any]
@@ -100,6 +100,8 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         
         let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
         client.complete(withStatusCode: 200, data: json)
+        
+        XCTAssertEqual(capturedResults, [.success([item1])])
     }
     
     // MARK: - Helpers

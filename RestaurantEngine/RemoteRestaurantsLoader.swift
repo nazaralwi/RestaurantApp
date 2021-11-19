@@ -34,17 +34,18 @@ public class RemoteRestaurantsLoader {
                     return completion(.failure(.invalidData))
                 }
 
-                let restaurants = [Root]()
+                var restaurants = [Root]()
                 let jsonResataurants = jsonResult["restaurants"] as! [AnyObject]
                 
                 for jsonResataurant in jsonResataurants {
-                    let _ = Root(
+                    let restaurant = Root(
                         id: jsonResataurant["id"] as! String,
                         name: jsonResataurant["name"] as! String,
                         description: jsonResataurant["description"] as! String,
                         pictureId: jsonResataurant["pictureId"] as? String ?? "0",
                         city: jsonResataurant["city"] as! String,
                         rating: jsonResataurant["rating"] as! Double)
+                    restaurants.append(restaurant)
                 }
                 
                 completion(.success(restaurants.map { restaurant in
