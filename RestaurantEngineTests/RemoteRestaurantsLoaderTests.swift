@@ -76,6 +76,40 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         XCTAssertEqual(capturedResults, [.success([])])
     }
     
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+        let (sut, client) = makeSUT()
+        
+        var capturedResults = [RemoteRestaurantsLoader.Result]()
+        sut.load { result in capturedResults.append(result) }
+        
+        let json = """
+            {
+                "restaurants": [
+                        {
+                            "id": "rqdv5juczeskfw1e867",
+                            "name": "Melting Pot",
+                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. ...",
+                            "pictureId": "14",
+                            "city": "Medan",
+                            "rating": 4.2
+                        },
+                        {
+                            "id": "s1knt6za9kkfw1e867",
+                            "name": "Kafe Kita",
+                            "description": "Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. ...",
+                            "pictureId": "25",
+                            "city": "Gorontalo",
+                            "rating": 4
+                        }
+                ]
+            }
+        """
+        
+        let jsonItems = Data(json.utf8)
+        
+        client.complete(withStatusCode: 200, data: jsonItems)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://any-url.com")!) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
