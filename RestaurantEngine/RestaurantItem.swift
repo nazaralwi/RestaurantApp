@@ -8,10 +8,19 @@
 import Foundation
 
 public struct RestaurantItem: Equatable {
-    let id: String
-    let name: String
-    let description: String
-    let pictureId: Int
-    let city: String
-    let rating: Double
+    public let id: String
+    public let name: String
+    public let description: String
+    public let pictureId: Int
+    public let city: String
+    public let rating: Double
+    
+    public init(id: String, name: String, description: String, pictureId: Int, city: String, rating: Double) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.pictureId = pictureId
+        self.city = city
+        self.rating = rating
+    }
 }

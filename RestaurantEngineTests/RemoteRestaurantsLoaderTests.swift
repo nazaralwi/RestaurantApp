@@ -79,32 +79,27 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         var capturedResults = [RemoteRestaurantsLoader.Result]()
         sut.load { result in capturedResults.append(result) }
         
-        let json = """
-            {
-                "restaurants": [
-                        {
-                            "id": "any id",
-                            "name": "any name",
-                            "description": "any description",
-                            "pictureId": "any picture id",
-                            "city": "any city",
-                            "rating": 4.2
-                        },
-                        {
-                            "id": "another id",
-                            "name": "another name",
-                            "description": "another description",
-                            "pictureId": "another picture id",
-                            "city": "another city",
-                            "rating": 4
-                        }
-                ]
-            }
-        """
+        let item1 = RestaurantItem(
+            id: "any id",
+            name: "any name",
+            description: "any description",
+            pictureId: 1,
+            city: "any city",
+            rating: 0.0)
         
-        let jsonItems = Data(json.utf8)
+        let item1JSON = [
+            "id": item1.id,
+            "name": item1.name,
+            "description": item1.description,
+            "pictureId": item1.pictureId,
+            "city": item1.city,
+            "rating": item1.rating
+        ] as [String : Any]
         
-        client.complete(withStatusCode: 200, data: jsonItems)
+        let itemsJSON = ["restaurants": [item1JSON]]
+        
+        let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+        client.complete(withStatusCode: 200, data: json)
     }
     
     // MARK: - Helpers

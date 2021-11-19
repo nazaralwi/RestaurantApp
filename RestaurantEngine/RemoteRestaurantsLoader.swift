@@ -42,7 +42,7 @@ public class RemoteRestaurantsLoader {
                         id: jsonResataurant["id"] as! String,
                         name: jsonResataurant["name"] as! String,
                         description: jsonResataurant["description"] as! String,
-                        pictureId: jsonResataurant["pictureId"] as! String,
+                        pictureId: jsonResataurant["pictureId"] as? String ?? "0",
                         city: jsonResataurant["city"] as! String,
                         rating: jsonResataurant["rating"] as! Double)
                 }
