@@ -68,7 +68,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleWith: .success([]), when: {
-            let emptyJSON = Data("{\"restaurants\": []}".utf8)
+            let emptyJSON = makeItemsJSON([])
             client.complete(withStatusCode: 200, data: emptyJSON)
         })
     }
@@ -76,27 +76,16 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
         
-        let item1 = RestaurantItem(
+        let item = makeItem(
             id: "any id",
             name: "any name",
             description: "any description",
             pictureId: 1,
             city: "any city",
             rating: 0.0)
-        
-        let item1JSON = [
-            "id": item1.id,
-            "name": item1.name,
-            "description": item1.description,
-            "pictureId": "\(item1.pictureId)",
-            "city": item1.city,
-            "rating": item1.rating
-        ] as [String : Any]
-        
-        let itemsJSON = ["restaurants": [item1JSON]]
-        
-        expect(sut, toCompleWith: .success([item1]), when: {
-            let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+                
+        expect(sut, toCompleWith: .success([item.model]), when: {
+            let json = makeItemsJSON([item.json])
             client.complete(withStatusCode: 200, data: json)
         })
     }
@@ -116,6 +105,32 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         action()
 
         XCTAssertEqual(capturedResult, [result], file: file, line: line)
+    }
+    
+    private func makeItem(id: String, name: String, description: String, pictureId: Int, city: String, rating: Double) -> (model: RestaurantItem, json: [String: Any]) {
+        let item = RestaurantItem(
+            id: id,
+            name: name,
+            description: description,
+            pictureId: pictureId,
+            city: city,
+            rating: rating)
+        
+        let item1JSON = [
+            "id": item.id,
+            "name": item.name,
+            "description": item.description,
+            "pictureId": "\(item.pictureId)",
+            "city": item.city,
+            "rating": item.rating
+        ] as [String : Any]
+
+        return (item, item1JSON)
+    }
+    
+    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+        let json = ["restaurants": items]
+        return try! JSONSerialization.data(withJSONObject: json)
     }
     
     private class HTTPClientSpy: HTTPClient {
