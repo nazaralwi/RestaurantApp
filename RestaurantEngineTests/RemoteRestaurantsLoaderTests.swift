@@ -37,7 +37,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_load_deliversConnectivityErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleWithError: .connectivity, when: {
+        expect(sut, toCompleWith: .failure(.connectivity), when: {
             let clientError = NSError(domain: "error", code: 0)
             client.complete(with: clientError)
         })
@@ -49,7 +49,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleWithError: .invalidData, when: {
+            expect(sut, toCompleWith: .failure(.invalidData), when: {
                 client.complete(withStatusCode: code, at: index)
             })
         }
@@ -58,7 +58,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_load_deliversInvalidDataErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleWithError: .invalidData, when: {
+        expect(sut, toCompleWith: .failure(.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -67,13 +67,10 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     func test_load_deliversEmptyDataOn200HTTPResponseWithEmptyJSON() {
         let (sut, client) = makeSUT()
         
-        var capturedResults = [RemoteRestaurantsLoader.Result]()
-        sut.load { result in capturedResults.append(result) }
-        
-        let emptyJSON = Data("{\"restaurants\": []}".utf8)
-        client.complete(withStatusCode: 200, data: emptyJSON)
-                
-        XCTAssertEqual(capturedResults, [.success([])])
+        expect(sut, toCompleWith: .success([]), when: {
+            let emptyJSON = Data("{\"restaurants\": []}".utf8)
+            client.complete(withStatusCode: 200, data: emptyJSON)
+        })
     }
     
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
@@ -118,13 +115,13 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func expect(_ sut: RemoteRestaurantsLoader, toCompleWithError expectedError: RemoteRestaurantsLoader.Error, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: RemoteRestaurantsLoader, toCompleWith result: RemoteRestaurantsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         var capturedResult = [RemoteRestaurantsLoader.Result]()
         sut.load { result in capturedResult.append(result) }
 
         action()
-        
-        XCTAssertEqual(capturedResult, [.failure(expectedError)], file: file, line: line)
+
+        XCTAssertEqual(capturedResult, [result], file: file, line: line)
     }
     
     private class HTTPClientSpy: HTTPClient {
