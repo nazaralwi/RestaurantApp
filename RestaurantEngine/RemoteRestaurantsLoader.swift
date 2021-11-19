@@ -44,14 +44,13 @@ public class RemoteRestaurantsLoader {
                         description: jsonResataurant["description"] as! String,
                         pictureId: jsonResataurant["pictureId"] as! String,
                         city: jsonResataurant["city"] as! String,
-                        rating: jsonResataurant["rating"] as! String)
+                        rating: jsonResataurant["rating"] as! Double)
                 }
                 
                 completion(.success(restaurants.map { restaurant in
                     let pictureId: Int? = Int(restaurant.pictureId)
-                    let rating: Double? = Double(restaurant.rating)
                     
-                    return RestaurantItem(id: restaurant.id, name: restaurant.name, description: restaurant.description, pictureId: pictureId ?? 0, city: restaurant.city, rating: rating ?? 0)
+                    return RestaurantItem(id: restaurant.id, name: restaurant.name, description: restaurant.description, pictureId: pictureId ?? 0, city: restaurant.city, rating: restaurant.rating)
                 }))
             case .failure:
                 completion(.failure(.connectivity))
@@ -66,5 +65,5 @@ struct Root {
     let description: String
     let pictureId: String
     let city: String
-    let rating: String
+    let rating: Double
 }
