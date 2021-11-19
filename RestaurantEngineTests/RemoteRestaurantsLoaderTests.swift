@@ -64,6 +64,18 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_deliversEmptyDataOn200HTTPResponseWithEmptyJSON() {
+        let (sut, client) = makeSUT()
+        
+        var capturedResults = [RemoteRestaurantsLoader.Result]()
+        sut.load { result in capturedResults.append(result) }
+        
+        let emptyJSON = Data("{\"restaurants\": []}".utf8)
+        client.complete(withStatusCode: 200, data: emptyJSON)
+                
+        XCTAssertEqual(capturedResults, [.success([])])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "https://any-url.com")!) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
