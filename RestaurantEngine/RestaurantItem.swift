@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct RestaurantItem {
-    let id: UUID
+public struct RestaurantItem: Equatable {
+    let id: String
     let name: String
     let description: String
     let pictureId: Int
