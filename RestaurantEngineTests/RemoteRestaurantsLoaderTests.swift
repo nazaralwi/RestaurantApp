@@ -92,10 +92,18 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "https://any-url.com")!) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(string: "https://any-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteRestaurantsLoader(url: url, client: client)
+        trackForMemoryLeaks(sut)
+        trackForMemoryLeaks(client)
         return (sut, client)
+    }
+    
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, file: file, line: line)
+        }
     }
     
     private func expect(_ sut: RemoteRestaurantsLoader, toCompleWith result: RemoteRestaurantsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
