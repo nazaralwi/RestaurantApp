@@ -50,14 +50,16 @@ public class RemoteRestaurantsLoader {
                     restaurants.append(restaurant)
                 }
                 
-                completion(.success(restaurants.map { restaurant in
-                    let pictureId: Int? = Int(restaurant.pictureId)
-                    
-                    return RestaurantItem(id: restaurant.id, name: restaurant.name, description: restaurant.description, pictureId: pictureId ?? 0, city: restaurant.city, rating: restaurant.rating)
-                }))
+                completion(.success(RemoteRestaurantsLoader.map(restaurants)))
             case .failure:
                 completion(.failure(.connectivity))
             }
+        }
+    }
+    
+    private static func map(_ restaurants: [Root]) -> [RestaurantItem] {
+        restaurants.map { restaurant in
+            RestaurantItem(id: restaurant.id, name: restaurant.name, description: restaurant.description, pictureId: Int(restaurant.pictureId) ?? 0, city: restaurant.city, rating: restaurant.rating)
         }
     }
 }
