@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import RestaurantEngine
 
 class URLSessionHTTPClient {
     let session: URLSession
@@ -21,9 +22,11 @@ class URLSessionHTTPClient {
 
 class URLSessionHTTPClientTests: XCTestCase {
     func test_getFromURL_createsDataTaskWithURL() {
-        let session = SessionSpy()
-        let sut = URLSessionHTTPClient(session: session)
         let url = URL(string: "https://any-url.com")!
+        let session = SessionSpy()
+        session.stub(url: url)
+        
+        let sut = URLSessionHTTPClient(session: session)
         
         sut.get(from: url)
         
@@ -47,15 +50,24 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     private class SessionSpy: URLSession {
         var receivedURLs = [URL]()
-        private var stubs = [URL: URLSessionDataTask]()
+        private var stubs = [URL: Stub]()
         
-        func stub(url: URL, task: URLSessionDataTask) {
-            stubs[url] = task
+        private struct Stub {
+            let task: URLSessionDataTask
+            let error: Error?
+        }
+        
+        func stub(url: URL, task: URLSessionDataTask = FakeURLSessionDataTask(), error: Error? = nil) {
+            receivedURLs.append(url)
+            stubs[url] = Stub(task: task, error: error)
         }
                 
         override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-            receivedURLs.append(url)
-            return stubs[url] ?? FakeURLSessionDataTask()
+            guard let stub = stubs[url] else {
+                fatalError("Couln't find stub for \(url)")
+            }
+            completionHandler(nil, nil, stub.error)
+            return stub.task
         }
     }
     
