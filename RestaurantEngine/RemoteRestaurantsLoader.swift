@@ -36,25 +36,32 @@ public class RemoteRestaurantsLoader {
                     return completion(.failure(.invalidData))
                 }
 
-                var restaurants = [Root]()
-                let jsonResataurants = jsonResult["restaurants"] as! [AnyObject]
-                
-                for jsonResataurant in jsonResataurants {
-                    let restaurant = Root(
-                        id: jsonResataurant["id"] as! String,
-                        name: jsonResataurant["name"] as! String,
-                        description: jsonResataurant["description"] as! String,
-                        pictureId: jsonResataurant["pictureId"] as? String ?? "0",
-                        city: jsonResataurant["city"] as! String,
-                        rating: jsonResataurant["rating"] as! Double)
-                    restaurants.append(restaurant)
-                }
+                let restaurants = RemoteRestaurantsLoader.parse(jsonResult)
                 
                 completion(.success(RemoteRestaurantsLoader.map(restaurants)))
             case .failure:
                 completion(.failure(.connectivity))
             }
         }
+    }
+    
+    private static func parse(_ json: NSDictionary) -> [Root] {
+        let jsonResataurants = json["restaurants"] as! [AnyObject]
+        
+        var restaurants = [Root]()
+        
+        for jsonResataurant in jsonResataurants {
+            let restaurant = Root(
+                id: jsonResataurant["id"] as! String,
+                name: jsonResataurant["name"] as! String,
+                description: jsonResataurant["description"] as! String,
+                pictureId: jsonResataurant["pictureId"] as? String ?? "0",
+                city: jsonResataurant["city"] as! String,
+                rating: jsonResataurant["rating"] as! Double)
+            restaurants.append(restaurant)
+        }
+        
+        return restaurants
     }
     
     private static func map(_ restaurants: [Root]) -> [RestaurantItem] {
