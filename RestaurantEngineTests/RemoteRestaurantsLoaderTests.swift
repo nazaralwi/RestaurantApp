@@ -115,13 +115,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         trackForMemoryLeaks(client)
         return (sut, client)
     }
-    
-    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, file: file, line: line)
-        }
-    }
-    
+        
     private func expect(_ sut: RemoteRestaurantsLoader, toCompleWith result: RemoteRestaurantsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         var capturedResult = [RemoteRestaurantsLoader.Result]()
         sut.load { result in capturedResult.append(result) }

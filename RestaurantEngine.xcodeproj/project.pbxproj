@@ -14,6 +14,7 @@
 		3D806D8C274516630072B8A0 /* RemoteRestaurantsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */; };
 		3D806D8E274516CF0072B8A0 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D806D8D274516CF0072B8A0 /* HTTPClient.swift */; };
 		3D8AE4BA274F892500759A25 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */; };
+		3D8AE4BC274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantsLoader.swift; sourceTree = "<group>"; };
 		3D806D8D274516CF0072B8A0 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */,
+				3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D42ABE52743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift in Sources */,
+				3D8AE4BC274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				3D375608274C9574003936DE /* URLSessionHTTPClientTests.swift in Sources */,
 				3D8AE4BA274F892500759A25 /* SharedTestHelpers.swift in Sources */,
 			);
