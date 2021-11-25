@@ -13,6 +13,7 @@
 		3D77B348274662C200B40FB9 /* RestaurantItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D77B347274662C200B40FB9 /* RestaurantItem.swift */; };
 		3D806D8C274516630072B8A0 /* RemoteRestaurantsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */; };
 		3D806D8E274516CF0072B8A0 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D806D8D274516CF0072B8A0 /* HTTPClient.swift */; };
+		3D8AE4BA274F892500759A25 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		3D77B347274662C200B40FB9 /* RestaurantItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantItem.swift; sourceTree = "<group>"; };
 		3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteRestaurantsLoader.swift; sourceTree = "<group>"; };
 		3D806D8D274516CF0072B8A0 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +87,19 @@
 		3D42ABD22743AD3C009A9E76 /* RestaurantEngineTests */ = {
 			isa = PBXGroup;
 			children = (
+				3D8AE4B8274F890000759A25 /* Helpers */,
 				3D42ABE42743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift */,
 				3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */,
 			);
 			path = RestaurantEngineTests;
+			sourceTree = "<group>";
+		};
+		3D8AE4B8274F890000759A25 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +224,7 @@
 			files = (
 				3D42ABE52743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift in Sources */,
 				3D375608274C9574003936DE /* URLSessionHTTPClientTests.swift in Sources */,
+				3D8AE4BA274F892500759A25 /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     }
     
     func test_load_requestsDataFromURL() {
-        let url = URL(string: "https://any-url.com")!
+        let url = anyURL()
         let (sut, client) = makeSUT(url: url)
         
         sut.load { _ in }
@@ -25,7 +25,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     }
     
     func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://any-url.com")!
+        let url = anyURL()
         let (sut, cliet) = makeSUT(url: url)
         
         sut.load { _ in }
@@ -94,7 +94,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
         var sut: RemoteRestaurantsLoader?
         let client = HTTPClientSpy()
         
-        sut = RemoteRestaurantsLoader(url: URL(string: "https://any-url.com")!, client: client)
+        sut = RemoteRestaurantsLoader(url: anyURL(), client: client)
         
         var capturedResults = [RemoteRestaurantsLoader.Result]()
         sut?.load { result in capturedResults.append(result) }
@@ -108,7 +108,7 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(string: "https://any-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
+    private func makeSUT(url: URL = anyURL(), file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteRestaurantsLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteRestaurantsLoader(url: url, client: client)
         trackForMemoryLeaks(sut)
