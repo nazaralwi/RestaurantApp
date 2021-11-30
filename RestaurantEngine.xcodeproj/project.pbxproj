@@ -16,10 +16,19 @@
 		3D8AE4BA274F892500759A25 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */; };
 		3D8AE4BC274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */; };
 		3DB8C1AA2755E4ED00EF8A8C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8C1A92755E4ED00EF8A8C /* URLSessionHTTPClient.swift */; };
+		3DB8C1B2275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8C1B1275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift */; };
+		3DB8C1B3275651E000EF8A8C /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		3D42ABD02743AD3C009A9E76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D42ABBD2743AD3B009A9E76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D42ABC52743AD3B009A9E76;
+			remoteInfo = RestaurantEngine;
+		};
+		3DB8C1B4275651E000EF8A8C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D42ABBD2743AD3B009A9E76 /* Project object */;
 			proxyType = 1;
@@ -39,6 +48,8 @@
 		3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		3DB8C1A92755E4ED00EF8A8C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		3DB8C1AF275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantEngineAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DB8C1B1275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantEngineAPIEndToEndTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +68,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3DB8C1AC275651E000EF8A8C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DB8C1B3275651E000EF8A8C /* RestaurantEngine.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -65,6 +84,7 @@
 			children = (
 				3D42ABC82743AD3B009A9E76 /* RestaurantEngine */,
 				3D42ABD22743AD3C009A9E76 /* RestaurantEngineTests */,
+				3DB8C1B0275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests */,
 				3D42ABC72743AD3B009A9E76 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,6 +94,7 @@
 			children = (
 				3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */,
 				3D42ABCE2743AD3C009A9E76 /* RestaurantEngineTests.xctest */,
+				3DB8C1AF275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +127,14 @@
 				3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3DB8C1B0275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests */ = {
+			isa = PBXGroup;
+			children = (
+				3DB8C1B1275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift */,
+			);
+			path = RestaurantEngineAPIEndToEndTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +186,24 @@
 			productReference = 3D42ABCE2743AD3C009A9E76 /* RestaurantEngineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		3DB8C1AE275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DB8C1B8275651E000EF8A8C /* Build configuration list for PBXNativeTarget "RestaurantEngineAPIEndToEndTests" */;
+			buildPhases = (
+				3DB8C1AB275651E000EF8A8C /* Sources */,
+				3DB8C1AC275651E000EF8A8C /* Frameworks */,
+				3DB8C1AD275651E000EF8A8C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3DB8C1B5275651E000EF8A8C /* PBXTargetDependency */,
+			);
+			name = RestaurantEngineAPIEndToEndTests;
+			productName = RestaurantEngineAPIEndToEndTests;
+			productReference = 3DB8C1AF275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,6 +222,9 @@
 						CreatedOnToolsVersion = 13.0;
 						LastSwiftMigration = 1300;
 					};
+					3DB8C1AE275651E000EF8A8C = {
+						CreatedOnToolsVersion = 13.0;
+					};
 				};
 			};
 			buildConfigurationList = 3D42ABC02743AD3B009A9E76 /* Build configuration list for PBXProject "RestaurantEngine" */;
@@ -192,6 +242,7 @@
 			targets = (
 				3D42ABC52743AD3B009A9E76 /* RestaurantEngine */,
 				3D42ABCD2743AD3C009A9E76 /* RestaurantEngineTests */,
+				3DB8C1AE275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +256,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3D42ABCC2743AD3C009A9E76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DB8C1AD275651E000EF8A8C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -236,6 +294,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3DB8C1AB275651E000EF8A8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DB8C1B2275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -243,6 +309,11 @@
 			isa = PBXTargetDependency;
 			target = 3D42ABC52743AD3B009A9E76 /* RestaurantEngine */;
 			targetProxy = 3D42ABD02743AD3C009A9E76 /* PBXContainerItemProxy */;
+		};
+		3DB8C1B5275651E000EF8A8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D42ABC52743AD3B009A9E76 /* RestaurantEngine */;
+			targetProxy = 3DB8C1B4275651E000EF8A8C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -470,6 +541,48 @@
 			};
 			name = Release;
 		};
+		3DB8C1B6275651E000EF8A8C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7DZF29DD8P;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.RestaurantEngineAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3DB8C1B7275651E000EF8A8C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7DZF29DD8P;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nazaralwi.RestaurantEngineAPIEndToEndTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -496,6 +609,15 @@
 			buildConfigurations = (
 				3D42ABDC2743AD3C009A9E76 /* Debug */,
 				3D42ABDD2743AD3C009A9E76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DB8C1B8275651E000EF8A8C /* Build configuration list for PBXNativeTarget "RestaurantEngineAPIEndToEndTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DB8C1B6275651E000EF8A8C /* Debug */,
+				3DB8C1B7275651E000EF8A8C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
