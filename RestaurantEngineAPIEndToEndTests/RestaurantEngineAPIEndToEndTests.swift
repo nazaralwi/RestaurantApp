@@ -24,10 +24,13 @@ class RestaurantEngineAPIEndToEndTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getFeedResult() -> RemoteRestaurantsLoader.Result? {
+    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> RemoteRestaurantsLoader.Result? {
         let testServerURL = URL(string: "https://restaurant-api.dicoding.dev/list")!
         let client = URLSessionHTTPClient()
         let loader = RemoteRestaurantsLoader(url: testServerURL, client: client)
+        
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for completion")
         
