@@ -15,6 +15,7 @@
 		3D806D8E274516CF0072B8A0 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D806D8D274516CF0072B8A0 /* HTTPClient.swift */; };
 		3D8AE4BA274F892500759A25 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */; };
 		3D8AE4BC274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */; };
+		3DB8C1AA2755E4ED00EF8A8C /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8C1A92755E4ED00EF8A8C /* URLSessionHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		3D806D8D274516CF0072B8A0 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3D8AE4B9274F892500759A25 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		3DB8C1A92755E4ED00EF8A8C /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */,
 				3D806D8D274516CF0072B8A0 /* HTTPClient.swift */,
 				3D77B347274662C200B40FB9 /* RestaurantItem.swift */,
+				3DB8C1A92755E4ED00EF8A8C /* URLSessionHTTPClient.swift */,
 			);
 			path = RestaurantEngine;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				3D806D8E274516CF0072B8A0 /* HTTPClient.swift in Sources */,
 				3D77B348274662C200B40FB9 /* RestaurantItem.swift in Sources */,
 				3D806D8C274516630072B8A0 /* RemoteRestaurantsLoader.swift in Sources */,
+				3DB8C1AA2755E4ED00EF8A8C /* URLSessionHTTPClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
