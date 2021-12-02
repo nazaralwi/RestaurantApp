@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension RestaurantViewController {
+extension RestaurantItemViewModel {
     static var prototypeRestaurant: [RestaurantItemViewModel] {
         [
             RestaurantItemViewModel(
