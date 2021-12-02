@@ -27,6 +27,6 @@ extension RestaurantItemViewCell {
         descriptionLabel.text = model.description
         locationLabel.text = model.location
         ratingLabel.text = model.rating
-        restaurantImageView.image = UIImage(named: model.imageName)
+        fadeIn(UIImage(named: model.imageName))
     }
 }

@@ -16,6 +16,7 @@
 		3DFA780B275869290087DEEE /* RestaurantItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA780A275869290087DEEE /* RestaurantItemViewModel.swift */; };
 		3DFA780D27586A810087DEEE /* RestaurantItemViewModel+Prototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA780C27586A810087DEEE /* RestaurantItemViewModel+Prototype.swift */; };
 		3DFA780F27586DE50087DEEE /* RestaurantItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA780E27586DE50087DEEE /* RestaurantItemViewCell.swift */; };
+		3DFA781127587DD50087DEEE /* RestaurantItemViewCell+FadeIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA781027587DD50087DEEE /* RestaurantItemViewCell+FadeIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3DFA780A275869290087DEEE /* RestaurantItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantItemViewModel.swift; sourceTree = "<group>"; };
 		3DFA780C27586A810087DEEE /* RestaurantItemViewModel+Prototype.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestaurantItemViewModel+Prototype.swift"; sourceTree = "<group>"; };
 		3DFA780E27586DE50087DEEE /* RestaurantItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantItemViewCell.swift; sourceTree = "<group>"; };
+		3DFA781027587DD50087DEEE /* RestaurantItemViewCell+FadeIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RestaurantItemViewCell+FadeIn.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				3DFA780A275869290087DEEE /* RestaurantItemViewModel.swift */,
 				3DFA780C27586A810087DEEE /* RestaurantItemViewModel+Prototype.swift */,
 				3DFA780E27586DE50087DEEE /* RestaurantItemViewCell.swift */,
+				3DFA781027587DD50087DEEE /* RestaurantItemViewCell+FadeIn.swift */,
 				3DE4730E27572BD50035E99D /* Main.storyboard */,
 				3DE4731127572BD90035E99D /* Assets.xcassets */,
 				3DE4731327572BD90035E99D /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 				3DFA780D27586A810087DEEE /* RestaurantItemViewModel+Prototype.swift in Sources */,
 				3DE4730927572BD50035E99D /* AppDelegate.swift in Sources */,
 				3DE4730B27572BD50035E99D /* SceneDelegate.swift in Sources */,
+				3DFA781127587DD50087DEEE /* RestaurantItemViewCell+FadeIn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
