@@ -13,7 +13,7 @@ class RestaurantViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { restaurant.count }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantItemCell", for: indexPath) as! RestaurantItemViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantItemCell", for: indexPath) as! RestaurantItemCell
         let model = restaurant[indexPath.row]
         cell.configure(with: model)
         
@@ -21,7 +21,7 @@ class RestaurantViewController: UITableViewController {
     }
 }
 
-extension RestaurantItemViewCell {
+extension RestaurantItemCell {
     func configure(with model: RestaurantItemViewModel){
         nameLabel.text = model.name
         descriptionLabel.text = model.description

@@ -1,5 +1,5 @@
 //
-//  RestaurantItemViewCell+Animation.swift
+//  RestaurantItemCell+Animation.swift
 //  Prototype
 //
 //  Created by Nazar Alwi on 02/12/21.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension RestaurantItemViewCell {
+extension RestaurantItemCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
