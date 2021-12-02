@@ -5,4 +5,12 @@
 //  Created by Nazar Alwi on 02/12/21.
 //
 
-import Foundation
+import UIKit
+
+class RestaurantItemViewCell: UITableViewCell {
+    @IBOutlet private(set) var nameLabel: UILabel!
+    @IBOutlet private(set) var descriptionLabel: UILabel!
+    @IBOutlet private(set) var locationLabel: UILabel!
+    @IBOutlet private(set) var ratingLabel: UILabel!
+    @IBOutlet private(set) var restaurantImageView: UIImageView!
+}

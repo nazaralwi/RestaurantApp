@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestaurantItemCell" rowHeight="514" id="CyY-zD-cEw">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestaurantItemCell" rowHeight="514" id="CyY-zD-cEw" customClass="RestaurantItemViewCell" customModule="Prototype" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="514"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CyY-zD-cEw" id="LGy-u3-fD9">
@@ -108,6 +108,13 @@
                                         <constraint firstItem="btA-Aj-beu" firstAttribute="trailing" secondItem="LGy-u3-fD9" secondAttribute="trailingMargin" id="zjZ-eL-i5i"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="VJv-AR-yoW" id="7eA-pk-pBn"/>
+                                    <outlet property="locationLabel" destination="Aj9-4H-rsU" id="sTu-LW-A55"/>
+                                    <outlet property="nameLabel" destination="qgE-nO-wd1" id="Eep-fA-cfY"/>
+                                    <outlet property="ratingLabel" destination="Gxb-Ye-7YV" id="mdI-cW-N5y"/>
+                                    <outlet property="restaurantImageView" destination="QWV-fK-ajW" id="DiZ-xu-Jiq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
