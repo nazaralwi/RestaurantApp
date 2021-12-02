@@ -8,7 +8,26 @@
 import UIKit
 
 class RestaurantViewController: UITableViewController {
-    private let restaurant = RestaurantItemViewModel.prototypeRestaurant
+    private var restaurant = [RestaurantItemViewModel]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        refresh()
+        tableView.setContentOffset(CGPoint(x: 0, y: -tableView.contentInset.top), animated: false)
+    }
+    
+    @IBAction func refresh() {
+        refreshControl?.beginRefreshing()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if self.restaurant.isEmpty {
+                self.restaurant = RestaurantItemViewModel.prototypeRestaurant
+                self.tableView.reloadData()
+            }
+            self.refreshControl?.endRefreshing()
+        }
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { restaurant.count }
     
