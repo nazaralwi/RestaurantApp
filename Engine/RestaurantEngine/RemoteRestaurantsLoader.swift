@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RemoteRestaurantsLoader {
+public class RemoteRestaurantsLoader: RestaurantLoader {
     private let url: URL
     private let client: HTTPClient
     
