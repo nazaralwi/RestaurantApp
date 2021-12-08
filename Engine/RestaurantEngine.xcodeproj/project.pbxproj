@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0EADD7276050DC00D1EAB4 /* RestaurantViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */; };
 		3D375608274C9574003936DE /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */; };
 		3D42ABCF2743AD3C009A9E76 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
 		3D42ABE52743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42ABE42743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewControllerTests.swift; sourceTree = "<group>"; };
 		3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D42ABCE2743AD3C009A9E76 /* RestaurantEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +179,7 @@
 		3DE4734E275788420035E99D /* RestaurantEngineiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */,
 			);
 			path = RestaurantEngineiOSTests;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 					};
 					3DE47349275788410035E99D = {
 						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
 					};
 				};
 			};
@@ -423,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0EADD7276050DC00D1EAB4 /* RestaurantViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +787,7 @@
 		3DE47356275788420035E99D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
@@ -797,6 +803,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -805,6 +812,7 @@
 		3DE47357275788420035E99D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7DZF29DD8P;
