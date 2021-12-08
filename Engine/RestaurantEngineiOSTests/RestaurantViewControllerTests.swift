@@ -6,11 +6,21 @@
 //
 
 import XCTest
+import UIKit
 import RestaurantEngine
 
-final class RestaurantViewController {
-    init(loader: RestaurantLoader) {
+final class RestaurantViewController: UIViewController {
+    private var loader: RestaurantLoader?
+    
+    convenience init(loader: RestaurantLoader) {
+        self.init()
+        self.loader = loader
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        loader?.load { _ in }
     }
 }
 
@@ -20,6 +30,15 @@ class RestaurantViewControllerTests: XCTestCase {
         _ = RestaurantViewController(loader: loader)
         
         XCTAssertEqual(loader.loadCallCount, 0)
+    }
+    
+    func test_viewDidLoad_loadsRestaurant() {
+        let loader = LoaderSpy()
+        let sut = RestaurantViewController(loader: loader)
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(loader.loadCallCount, 1)
     }
     
     // MARK: - Helpers
