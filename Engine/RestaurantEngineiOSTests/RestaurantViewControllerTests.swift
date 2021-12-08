@@ -22,6 +22,7 @@ final class RestaurantViewController: UITableViewController {
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        refreshControl?.beginRefreshing()
         load()
     }
     
@@ -43,6 +44,14 @@ class RestaurantViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         
         XCTAssertEqual(loader.loadCallCount, 1)
+    }
+    
+    func test_viewDidLoad_showsLoadingIndicator() {
+        let (sut, _) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
     func test_pullToRefreshTwice_loadsRestaurantTwice() {
@@ -81,6 +90,16 @@ private extension UIRefreshControl {
     func simulatePullToRefresh() {
         allTargets.forEach({ target in
             actions(forTarget: target, forControlEvent: .valueChanged)?.forEach({
+                (target as NSObject).perform(Selector($0))
+            })
+        })
+    }
+}
+
+private extension RestaurantViewController {
+    func simulatePullToRefresh() {
+        refreshControl?.allTargets.forEach({ target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach({
                 (target as NSObject).perform(Selector($0))
             })
         })
