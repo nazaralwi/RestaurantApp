@@ -10,7 +10,7 @@ import RestaurantEngine
 
 class RestaurantEngineAPIEndToEndTests: XCTestCase {
     func test_endToEndTestServerGETRestaurantResult_matchesFixedTestAccountData() {
-        switch getFeedResult() {
+        switch getRestaurantResult() {
         case let .success(items):
             XCTAssertEqual(items.count, 20, "Expected 20 items in the test account restaurant")
             
@@ -24,7 +24,7 @@ class RestaurantEngineAPIEndToEndTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> RemoteRestaurantsLoader.Result? {
+    private func getRestaurantResult(file: StaticString = #filePath, line: UInt = #line) -> RemoteRestaurantsLoader.Result? {
         let testServerURL = URL(string: "https://restaurant-api.dicoding.dev/list")!
         let client = URLSessionHTTPClient()
         let loader = RemoteRestaurantsLoader(url: testServerURL, client: client)

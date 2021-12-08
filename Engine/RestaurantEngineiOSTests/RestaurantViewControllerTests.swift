@@ -14,7 +14,7 @@ final class RestaurantViewController {
 }
 
 class RestaurantViewControllerTests: XCTestCase {
-    func test_init_doesNotLoadFeed() {
+    func test_init_doesNotLoadRestaurant() {
         let loader = LoaderSpy()
         _ = RestaurantViewController(loader: loader)
         
