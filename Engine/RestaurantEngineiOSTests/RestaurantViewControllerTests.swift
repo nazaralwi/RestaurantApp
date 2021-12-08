@@ -45,7 +45,7 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 1)
     }
     
-    func test_pullToRefresh_loadsRestaurant() {
+    func test_pullToRefreshTwice_loadsRestaurantTwice() {
         let (sut, loader) = makeSUT()
         
         sut.refreshControl?.allTargets.forEach({ target in
@@ -55,6 +55,14 @@ class RestaurantViewControllerTests: XCTestCase {
         })
         
         XCTAssertEqual(loader.loadCallCount, 2)
+        
+        sut.refreshControl?.allTargets.forEach({ target in
+            sut.refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach({
+                (target as NSObject).perform(Selector($0))
+            })
+        })
+        
+        XCTAssertEqual(loader.loadCallCount, 3)
     }
     
     // MARK: - Helpers
