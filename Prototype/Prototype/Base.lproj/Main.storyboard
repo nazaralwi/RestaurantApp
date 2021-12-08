@@ -121,6 +121,7 @@
                                     <outlet property="locationLabel" destination="Aj9-4H-rsU" id="sTu-LW-A55"/>
                                     <outlet property="nameLabel" destination="qgE-nO-wd1" id="Eep-fA-cfY"/>
                                     <outlet property="ratingLabel" destination="Gxb-Ye-7YV" id="mdI-cW-N5y"/>
+                                    <outlet property="restaurantImageContainer" destination="btA-Aj-beu" id="nQ5-DP-9Fx"/>
                                     <outlet property="restaurantImageView" destination="QWV-fK-ajW" id="DiZ-xu-Jiq"/>
                                 </connections>
                             </tableViewCell>
@@ -132,6 +133,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="My Restaurant" id="dId-Or-4Ud"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Qyw-2X-8qi">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <action selector="refresh" destination="pbb-gH-xrQ" eventType="valueChanged" id="NTe-OO-Pgy"/>

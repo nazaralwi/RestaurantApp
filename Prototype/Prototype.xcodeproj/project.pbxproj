@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0EADD527603AAA00D1EAB4 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EADD427603AAA00D1EAB4 /* UIView+Shimmering.swift */; };
 		3DE4730927572BD50035E99D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4730827572BD50035E99D /* AppDelegate.swift */; };
 		3DE4730B27572BD50035E99D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4730A27572BD50035E99D /* SceneDelegate.swift */; };
 		3DE4730D27572BD50035E99D /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE4730C27572BD50035E99D /* RestaurantViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D0EADD427603AAA00D1EAB4 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 		3DE4730527572BD50035E99D /* Prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE4730827572BD50035E99D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DE4730A27572BD50035E99D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				3DFA780E27586DE50087DEEE /* RestaurantItemCell.swift */,
 				3DFA781027587DD50087DEEE /* RestaurantItemCell+FadeIn.swift */,
+				3D0EADD427603AAA00D1EAB4 /* UIView+Shimmering.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFA780B275869290087DEEE /* RestaurantItemViewModel.swift in Sources */,
+				3D0EADD527603AAA00D1EAB4 /* UIView+Shimmering.swift in Sources */,
 				3DE4730D27572BD50035E99D /* RestaurantViewController.swift in Sources */,
 				3DFA780F27586DE50087DEEE /* RestaurantItemCell.swift in Sources */,
 				3DFA780D27586A810087DEEE /* RestaurantItemViewModel+Prototype.swift in Sources */,
