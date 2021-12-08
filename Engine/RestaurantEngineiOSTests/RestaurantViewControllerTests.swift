@@ -26,15 +26,13 @@ final class RestaurantViewController: UIViewController {
 
 class RestaurantViewControllerTests: XCTestCase {
     func test_init_doesNotLoadRestaurant() {
-        let loader = LoaderSpy()
-        _ = RestaurantViewController(loader: loader)
+        let (_, loader) = makeSUT()
         
         XCTAssertEqual(loader.loadCallCount, 0)
     }
     
     func test_viewDidLoad_loadsRestaurant() {
-        let loader = LoaderSpy()
-        let sut = RestaurantViewController(loader: loader)
+        let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         
@@ -42,6 +40,15 @@ class RestaurantViewControllerTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
+        let loader = LoaderSpy()
+        let sut = RestaurantViewController(loader: loader)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        
+        return (sut, loader)
+    }
     
     class LoaderSpy: RestaurantLoader {
         private(set) var loadCallCount: Int = 0

@@ -23,6 +23,7 @@
 		3DB8C1B2275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB8C1B1275651E000EF8A8C /* RestaurantEngineAPIEndToEndTests.swift */; };
 		3DB8C1B3275651E000EF8A8C /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
 		3DB8C1B92756769400EF8A8C /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */; };
+		3DBB186827606B7300681298 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8AE4BB274F8A5800759A25 /* XCTestCase+MemoryLeakTracking.swift */; };
 		3DE4734B275788420035E99D /* RestaurantEngineiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE47343275788410035E99D /* RestaurantEngineiOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -466,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0EADD7276050DC00D1EAB4 /* RestaurantViewControllerTests.swift in Sources */,
+				3DBB186827606B7300681298 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
