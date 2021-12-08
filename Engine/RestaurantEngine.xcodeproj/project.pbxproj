@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3D0EADD7276050DC00D1EAB4 /* RestaurantViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */; };
 		3D0EADD9276053A900D1EAB4 /* RestaurantLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EADD8276053A800D1EAB4 /* RestaurantLoader.swift */; };
+		3D0EADEB276058E200D1EAB4 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; platformFilter = ios; };
+		3D0EADEC276058E200D1EAB4 /* RestaurantEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D375608274C9574003936DE /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */; };
 		3D42ABCF2743AD3C009A9E76 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
 		3D42ABE52743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42ABE42743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift */; };
@@ -25,6 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3D0EADED276058E200D1EAB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D42ABBD2743AD3B009A9E76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D42ABC52743AD3B009A9E76;
+			remoteInfo = RestaurantEngine;
+		};
 		3D42ABD02743AD3C009A9E76 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D42ABBD2743AD3B009A9E76 /* Project object */;
@@ -47,6 +56,20 @@
 			remoteInfo = RestaurantEngineiOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3D0EADEF276058E200D1EAB4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3D0EADEC276058E200D1EAB4 /* RestaurantEngine.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewControllerTests.swift; sourceTree = "<group>"; };
@@ -95,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0EADEB276058E200D1EAB4 /* RestaurantEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +133,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0EADDA2760559600D1EAB4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3D42ABBC2743AD3B009A9E76 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +149,7 @@
 				3DE47344275788410035E99D /* RestaurantEngineiOS */,
 				3DE4734E275788420035E99D /* RestaurantEngineiOSTests */,
 				3D42ABC72743AD3B009A9E76 /* Products */,
+				3D0EADDA2760559600D1EAB4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -269,10 +301,12 @@
 				3DE4733F275788410035E99D /* Sources */,
 				3DE47340275788410035E99D /* Frameworks */,
 				3DE47341275788410035E99D /* Resources */,
+				3D0EADEF276058E200D1EAB4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3D0EADEE276058E200D1EAB4 /* PBXTargetDependency */,
 			);
 			name = RestaurantEngineiOS;
 			productName = RestaurantEngineiOS;
@@ -438,6 +472,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3D0EADEE276058E200D1EAB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 3D42ABC52743AD3B009A9E76 /* RestaurantEngine */;
+			targetProxy = 3D0EADED276058E200D1EAB4 /* PBXContainerItemProxy */;
+		};
 		3D42ABD12743AD3C009A9E76 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D42ABC52743AD3B009A9E76 /* RestaurantEngine */;

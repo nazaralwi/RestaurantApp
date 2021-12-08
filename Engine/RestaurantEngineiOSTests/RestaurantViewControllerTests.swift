@@ -6,9 +6,10 @@
 //
 
 import XCTest
+import RestaurantEngine
 
 final class RestaurantViewController {
-    init(loader: RestaurantViewControllerTests.LoaderSpy) {
+    init(loader: RestaurantLoader) {
         
     }
 }
@@ -23,7 +24,11 @@ class RestaurantViewControllerTests: XCTestCase {
     
     // MARK: - Helpers
     
-    class LoaderSpy {
+    class LoaderSpy: RestaurantLoader {
         private(set) var loadCallCount: Int = 0
+        
+        func load(completion: @escaping (RemoteRestaurantsLoader.Result) -> Void) {
+            loadCallCount += 1
+        }
     }
 }
