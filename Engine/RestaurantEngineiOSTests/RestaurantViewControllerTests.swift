@@ -27,7 +27,9 @@ final class RestaurantViewController: UITableViewController {
     }
     
     @objc private func load() {
-        loader?.load { _ in }
+        loader?.load { [weak self] _ in
+            self?.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -54,6 +56,15 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
+    func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+    }
+    
     func test_pullToRefreshTwice_loadsRestaurantTwice() {
         let (sut, loader) = makeSUT()
             
@@ -78,10 +89,18 @@ class RestaurantViewControllerTests: XCTestCase {
     }
     
     class LoaderSpy: RestaurantLoader {
-        private(set) var loadCallCount: Int = 0
+        private var completions = [(RemoteRestaurantsLoader.Result) -> Void]()
+        
+        var loadCallCount: Int {
+            completions.count
+        }
         
         func load(completion: @escaping (RemoteRestaurantsLoader.Result) -> Void) {
-            loadCallCount += 1
+            completions.append(completion)
+        }
+        
+        func completeRestaurantLoading() {
+            completions[0](.success([]))
         }
     }
 }
