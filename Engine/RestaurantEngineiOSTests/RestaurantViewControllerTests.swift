@@ -53,7 +53,7 @@ class RestaurantViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
     }
     
     func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
@@ -62,7 +62,7 @@ class RestaurantViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         loader.completeRestaurantLoading()
         
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
     
     func test_userInitiatedRestaurantReloadTwice_loadsRestaurantTwice() {
@@ -82,7 +82,7 @@ class RestaurantViewControllerTests: XCTestCase {
                 
         sut.simulateUserInitiatedRestaurantReload()
         
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+        XCTAssertTrue(sut.isShowingLoadingIndicator)
     }
     
     func test_userInitiatedRestaurantReload_hidesLoadingIndicator() {
@@ -91,7 +91,7 @@ class RestaurantViewControllerTests: XCTestCase {
         sut.simulateUserInitiatedRestaurantReload()
         loader.completeRestaurantLoading()
         
-        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+        XCTAssertFalse(sut.isShowingLoadingIndicator)
     }
     
     // MARK: - Helpers
@@ -123,6 +123,10 @@ class RestaurantViewControllerTests: XCTestCase {
 }
 
 private extension RestaurantViewController {
+    var isShowingLoadingIndicator: Bool {
+        refreshControl?.isRefreshing == true
+    }
+
     func simulateUserInitiatedRestaurantReload() {
         refreshControl?.simulatePullToRefresh()
     }
