@@ -34,64 +34,43 @@ final class RestaurantViewController: UITableViewController {
 }
 
 class RestaurantViewControllerTests: XCTestCase {
-    func test_init_doesNotLoadRestaurant() {
-        let (_, loader) = makeSUT()
+    func test_loadRestaurantActions_requestRestaurantFromLoader() {
+        let (sut, loader) = makeSUT()
         
-        XCTAssertEqual(loader.loadCallCount, 0)
+        XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading request before view is loaded")
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once view is loaded")
+        
+        sut.simulateUserInitiatedRestaurantReload()
+        
+        XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once user initiates a reload")
+        
+        sut.simulateUserInitiatedRestaurantReload()
+        
+        XCTAssertEqual(loader.loadCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
     
-    func test_viewDidLoad_loadsRestaurant() {
+    func test_loadingRestaurantIndicator_isVisibleWhileLoadingRestaurant() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(loader.loadCallCount, 1)
-    }
-    
-    func test_viewDidLoad_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
         
-        sut.loadViewIfNeeded()
-        
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
-    }
-    
-    func test_viewDidLoad_hidesLoadingIndicatorOnLoaderCompletion() {
-        let (sut, loader) = makeSUT()
-        
-        sut.loadViewIfNeeded()
         loader.completeRestaurantLoading()
         
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
-    }
-    
-    func test_userInitiatedRestaurantReloadTwice_loadsRestaurantTwice() {
-        let (sut, loader) = makeSUT()
-            
-        sut.simulateUserInitiatedRestaurantReload()
-        
-        XCTAssertEqual(loader.loadCallCount, 2)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
         
         sut.simulateUserInitiatedRestaurantReload()
         
-        XCTAssertEqual(loader.loadCallCount, 3)
-    }
-    
-    func test_userInitiatedRestaurantReload_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
-                
-        sut.simulateUserInitiatedRestaurantReload()
+        XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indiactor once user initiates a reload")
         
-        XCTAssertTrue(sut.isShowingLoadingIndicator)
-    }
-    
-    func test_userInitiatedRestaurantReload_hidesLoadingIndicator() {
-        let (sut, loader) = makeSUT()
-                
         sut.simulateUserInitiatedRestaurantReload()
         loader.completeRestaurantLoading()
         
-        XCTAssertFalse(sut.isShowingLoadingIndicator)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
     }
     
     // MARK: - Helpers
@@ -116,8 +95,8 @@ class RestaurantViewControllerTests: XCTestCase {
             completions.append(completion)
         }
         
-        func completeRestaurantLoading() {
-            completions[0](.success([]))
+        func completeRestaurantLoading(at index: Int = 0) {
+            completions[index](.success([]))
         }
     }
 }
