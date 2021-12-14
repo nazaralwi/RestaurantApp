@@ -11,6 +11,7 @@
 		3D0EADD9276053A900D1EAB4 /* RestaurantLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EADD8276053A800D1EAB4 /* RestaurantLoader.swift */; };
 		3D0EADEB276058E200D1EAB4 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; platformFilter = ios; };
 		3D0EADEC276058E200D1EAB4 /* RestaurantEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3D17F98427686CF3005532F4 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17F98327686CF3005532F4 /* RestaurantViewController.swift */; };
 		3D375608274C9574003936DE /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */; };
 		3D42ABCF2743AD3C009A9E76 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
 		3D42ABE52743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42ABE42743AF37009A9E76 /* RemoteRestaurantsLoaderTests.swift */; };
@@ -75,6 +76,7 @@
 /* Begin PBXFileReference section */
 		3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewControllerTests.swift; sourceTree = "<group>"; };
 		3D0EADD8276053A800D1EAB4 /* RestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoader.swift; sourceTree = "<group>"; };
+		3D17F98327686CF3005532F4 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D42ABCE2743AD3C009A9E76 /* RestaurantEngineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantEngineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +210,7 @@
 		3DE47344275788410035E99D /* RestaurantEngineiOS */ = {
 			isa = PBXGroup;
 			children = (
+				3D17F98327686CF3005532F4 /* RestaurantViewController.swift */,
 			);
 			path = RestaurantEngineiOS;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 					};
 					3DE47342275788410035E99D = {
 						CreatedOnToolsVersion = 13.0;
+						LastSwiftMigration = 1300;
 					};
 					3DE47349275788410035E99D = {
 						CreatedOnToolsVersion = 13.0;
@@ -459,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D17F98427686CF3005532F4 /* RestaurantViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +777,7 @@
 		3DE47353275788420035E99D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -794,6 +800,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -802,6 +809,7 @@
 		3DE47354275788420035E99D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -833,6 +841,7 @@
 		3DE47356275788420035E99D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -858,6 +867,7 @@
 		3DE47357275788420035E99D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

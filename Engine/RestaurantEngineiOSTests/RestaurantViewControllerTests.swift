@@ -8,30 +8,7 @@
 import XCTest
 import UIKit
 import RestaurantEngine
-
-final class RestaurantViewController: UITableViewController {
-    private var loader: RestaurantLoader?
-    
-    convenience init(loader: RestaurantLoader) {
-        self.init()
-        self.loader = loader
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        load()
-    }
-    
-    @objc private func load() {
-        refreshControl?.beginRefreshing()
-        loader?.load { [weak self] _ in
-            self?.refreshControl?.endRefreshing()
-        }
-    }
-}
+import RestaurantEngineiOS
 
 class RestaurantViewControllerTests: XCTestCase {
     func test_loadRestaurantActions_requestRestaurantFromLoader() {
