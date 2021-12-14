@@ -85,6 +85,15 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
+    func test_pullToRefresh_hidesLoadingIndicator() {
+        let (sut, loader) = makeSUT()
+                
+        sut.refreshControl?.simulatePullToRefresh()
+        loader.completeRestaurantLoading()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
