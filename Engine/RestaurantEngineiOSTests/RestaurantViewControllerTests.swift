@@ -65,30 +65,30 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
-    func test_pullToRefreshTwice_loadsRestaurantTwice() {
+    func test_userInitiatedRestaurantReloadTwice_loadsRestaurantTwice() {
         let (sut, loader) = makeSUT()
             
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedRestaurantReload()
         
         XCTAssertEqual(loader.loadCallCount, 2)
         
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedRestaurantReload()
         
         XCTAssertEqual(loader.loadCallCount, 3)
     }
     
-    func test_pullToRefresh_showsLoadingIndicator() {
+    func test_userInitiatedRestaurantReload_showsLoadingIndicator() {
         let (sut, _) = makeSUT()
                 
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedRestaurantReload()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
-    func test_pullToRefresh_hidesLoadingIndicator() {
+    func test_userInitiatedRestaurantReload_hidesLoadingIndicator() {
         let (sut, loader) = makeSUT()
                 
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedRestaurantReload()
         loader.completeRestaurantLoading()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
@@ -119,6 +119,12 @@ class RestaurantViewControllerTests: XCTestCase {
         func completeRestaurantLoading() {
             completions[0](.success([]))
         }
+    }
+}
+
+private extension RestaurantViewController {
+    func simulateUserInitiatedRestaurantReload() {
+        refreshControl?.simulatePullToRefresh()
     }
 }
 
