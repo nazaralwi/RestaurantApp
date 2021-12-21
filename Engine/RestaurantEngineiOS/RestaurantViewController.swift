@@ -10,6 +10,7 @@ import RestaurantEngine
 
 public final class RestaurantViewController: UITableViewController {
     private var loader: RestaurantLoader?
+    private var tableModel = [RestaurantItem]()
     
     public convenience init(loader: RestaurantLoader) {
         self.init()
@@ -26,8 +27,30 @@ public final class RestaurantViewController: UITableViewController {
     
     @objc private func load() {
         refreshControl?.beginRefreshing()
-        loader?.load { [weak self] _ in
+        loader?.load { [weak self] result in
+            switch result {
+            case let .success(restaurant):
+                self?.tableModel = restaurant
+                self?.tableView.reloadData()
+            case .failure:
+                break
+            }
+            
             self?.refreshControl?.endRefreshing()
         }
+    }
+    
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableModel.count
+    }
+    
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellModel = tableModel[indexPath.row]
+        let cell = RestaurantCell()
+        cell.nameLabel.text = cellModel.name
+        cell.descriptionLabel.text = cellModel.description
+        cell.locationLabel.text = cellModel.city
+        cell.ratingLabel.text = "\(cellModel.rating)"
+        return cell
     }
 }

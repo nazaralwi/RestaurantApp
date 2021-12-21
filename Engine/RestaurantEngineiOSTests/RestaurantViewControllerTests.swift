@@ -49,6 +49,22 @@ class RestaurantViewControllerTests: XCTestCase {
         
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
     }
+        
+    func test_loadRestaurantCompletion_rendersSuccessfullyLoadedRestaurant() {
+        let restaurant0 = makeRestaurant()
+        let restaurant1 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        assertThat(sut, isRendering: [])
+        
+        loader.completeRestaurantLoading(with: [restaurant0], at: 0)
+        assertThat(sut, isRendering: [restaurant0])
+        
+        sut.simulateUserInitiatedRestaurantReload()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1], at: 1)
+        assertThat(sut, isRendering: [restaurant0, restaurant1])
+    }
     
     // MARK: - Helpers
     
@@ -59,6 +75,33 @@ class RestaurantViewControllerTests: XCTestCase {
         trackForMemoryLeaks(loader, file: file, line: line)
         
         return (sut, loader)
+    }
+    
+    private func assertThat(_ sut: RestaurantViewController, isRendering restaurants: [RestaurantItem], file: StaticString = #filePath, line: UInt = #line) {
+        guard sut.tableView.numberOfRows(inSection: 0) == restaurants.count else {
+            return XCTFail("Expected \(restaurants.count) restaurants, got \(sut.tableView.numberOfRows(inSection: 0)) instead", file: file, line: line)
+        }
+        
+        restaurants.enumerated().forEach { index, restaurant in
+            assertThat(sut, hasViewConfiguredFor: restaurant, at: index, file: file, line: line)
+        }
+    }
+    
+    private func assertThat(_ sut: RestaurantViewController, hasViewConfiguredFor restaurant: RestaurantItem, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
+        let view = sut.restaurantView(at: 0)
+        
+        guard let cell = view as? RestaurantCell else {
+            return XCTFail("Expected \(RestaurantCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
+        }
+        
+        XCTAssertEqual(cell.nameLabel.text, restaurant.name, file: file, line: line)
+        XCTAssertEqual(cell.descriptionLabel.text, restaurant.description, file: file, line: line)
+        XCTAssertEqual(cell.locationLabel.text, restaurant.city, file: file, line: line)
+        XCTAssertEqual(cell.ratingLabel.text, "\(restaurant.rating)", file: file, line: line)
+    }
+    
+    private func makeRestaurant() -> RestaurantItem {
+        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", pictureId: 0, city: "a city", rating: 0.0)
     }
     
     class LoaderSpy: RestaurantLoader {
@@ -72,8 +115,8 @@ class RestaurantViewControllerTests: XCTestCase {
             completions.append(completion)
         }
         
-        func completeRestaurantLoading(at index: Int = 0) {
-            completions[index](.success([]))
+        func completeRestaurantLoading(with restaurant: [RestaurantItem] = [], at index: Int = 0) {
+            completions[index](.success(restaurant))
         }
     }
 }
@@ -85,6 +128,16 @@ private extension RestaurantViewController {
 
     func simulateUserInitiatedRestaurantReload() {
         refreshControl?.simulatePullToRefresh()
+    }
+    
+    func restaurantView(at row: Int) -> UITableViewCell? {
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: restaurantSection)
+        return ds?.tableView(tableView, cellForRowAt: index)
+    }
+    
+    var restaurantSection: Int {
+        0
     }
 }
 
