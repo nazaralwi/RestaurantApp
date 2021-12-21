@@ -182,8 +182,8 @@
 		3D42ABD22743AD3C009A9E76 /* RestaurantEngineTests */ = {
 			isa = PBXGroup;
 			children = (
-				3D825A45277185BC00179686 /* Restaurant API */,
 				3D8AE4B8274F890000759A25 /* Helpers */,
+				3D825A45277185BC00179686 /* Restaurant API */,
 			);
 			path = RestaurantEngineTests;
 			sourceTree = "<group>";
@@ -191,8 +191,8 @@
 		3D825A432771859F00179686 /* Restaurant API */ = {
 			isa = PBXGroup;
 			children = (
-				3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */,
 				3D806D8D274516CF0072B8A0 /* HTTPClient.swift */,
+				3D806D8B274516630072B8A0 /* RemoteRestaurantsLoader.swift */,
 				3DB8C1A92755E4ED00EF8A8C /* URLSessionHTTPClient.swift */,
 			);
 			path = "Restaurant API";
@@ -236,8 +236,8 @@
 		3DE47344275788410035E99D /* RestaurantEngineiOS */ = {
 			isa = PBXGroup;
 			children = (
-				3D17F98327686CF3005532F4 /* RestaurantViewController.swift */,
 				3D2E69C4276B0BC100868C6D /* RestaurantCell.swift */,
+				3D17F98327686CF3005532F4 /* RestaurantViewController.swift */,
 			);
 			path = RestaurantEngineiOS;
 			sourceTree = "<group>";
