@@ -116,7 +116,7 @@ class RestaurantViewControllerTests: XCTestCase {
     }
     
     private func makeRestaurant() -> RestaurantItem {
-        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", location: "a location", rating: 0.0, imageURL: URL(string: "https://restaurant-api.dicoding.dev/images/medium/\(0)")!)
+        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", location: "a location", rating: 0.0, imageURL: URL(string: "https://a-url/images/\(0)")!)
     }
     
     class LoaderSpy: RestaurantLoader {
