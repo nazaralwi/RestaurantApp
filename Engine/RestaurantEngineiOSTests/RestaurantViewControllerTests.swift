@@ -149,6 +149,10 @@ private extension RestaurantViewController {
         tableView.numberOfRows(inSection: restaurantSection)
     }
 
+    var restaurantSection: Int {
+        0
+    }
+    
     func simulateUserInitiatedRestaurantReload() {
         refreshControl?.simulatePullToRefresh()
     }
@@ -157,10 +161,6 @@ private extension RestaurantViewController {
         let ds = tableView.dataSource
         let index = IndexPath(row: row, section: restaurantSection)
         return ds?.tableView(tableView, cellForRowAt: index)
-    }
-    
-    var restaurantSection: Int {
-        0
     }
 }
 
