@@ -14,19 +14,19 @@ class RestaurantViewControllerTests: XCTestCase {
     func test_loadRestaurantActions_requestRestaurantFromLoader() {
         let (sut, loader) = makeSUT()
         
-        XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading request before view is loaded")
+        XCTAssertEqual(loader.loadRestaurantCallCount, 0, "Expected no loading request before view is loaded")
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once view is loaded")
+        XCTAssertEqual(loader.loadRestaurantCallCount, 1, "Expected a loading request once view is loaded")
         
         sut.simulateUserInitiatedRestaurantReload()
         
-        XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once user initiates a reload")
+        XCTAssertEqual(loader.loadRestaurantCallCount, 2, "Expected another loading request once user initiates a reload")
         
         sut.simulateUserInitiatedRestaurantReload()
         
-        XCTAssertEqual(loader.loadCallCount, 3, "Expected yet another loading request once user initiates another reload")
+        XCTAssertEqual(loader.loadRestaurantCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
     
     func test_loadingRestaurantIndicator_isVisibleWhileLoadingRestaurant() {
@@ -81,11 +81,28 @@ class RestaurantViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [restaurant0, restaurant1])
     }
     
+    func test_restaurantImageView_loadsImageURLWhenVisible() {
+        let restaurant0 = makeRestaurant(imageURL: URL(string: "https://a-url/images/0")!)
+        let restaurant1 = makeRestaurant(imageURL: URL(string: "https://a-url/images/1")!)
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image URL request until views become visible")
+        
+        sut.simulateRestaurantImageViewVisible(at: 0)
+        XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL], "Expected first image URL request once first view becomes visible")
+        
+        sut.simulateRestaurantImageViewVisible(at: 1)
+        XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected second image URL request once second view also becomes visible")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = RestaurantViewController(loader: loader)
+        let sut = RestaurantViewController(restaurantLoader: loader, restaurantImageLoader: loader)
         trackForMemoryLeaks(sut, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
         
@@ -115,27 +132,36 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.ratingText, "\(restaurant.rating)", "Expected rating text to be \(String(describing: restaurant.rating)) for restaurant cell at index \(index)", file: file, line: line)
     }
     
-    private func makeRestaurant() -> RestaurantItem {
-        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", location: "a location", rating: 0.0, imageURL: URL(string: "https://a-url/images/\(0)")!)
+    private func makeRestaurant(imageURL: URL = URL(string: "https://a-url/images/0")!) -> RestaurantItem {
+        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", location: "a location", rating: 0.0, imageURL: imageURL)
     }
     
-    class LoaderSpy: RestaurantLoader {
-        private var completions = [(RemoteRestaurantsLoader.Result) -> Void]()
+    class LoaderSpy: RestaurantLoader, RestaurantImageDataLoader {
+        // MARK: - RestaurantLoader
+        private var restaurantRequests = [(RemoteRestaurantsLoader.Result) -> Void]()
         
-        var loadCallCount: Int {
-            completions.count
+        var loadRestaurantCallCount: Int {
+            restaurantRequests.count
         }
         
         func load(completion: @escaping (RemoteRestaurantsLoader.Result) -> Void) {
-            completions.append(completion)
+            restaurantRequests.append(completion)
         }
         
         func completeRestaurantLoading(with restaurant: [RestaurantItem] = [], at index: Int = 0) {
-            completions[index](.success(restaurant))
+            restaurantRequests[index](.success(restaurant))
         }
         
         func completeRestaurantLoadingWithError(at index: Int = 0) {
-            completions[index](.failure(.connectivity))
+            restaurantRequests[index](.failure(.connectivity))
+        }
+        
+        // MARK: - RestaurantImageDataLoader
+        
+        private(set) var loadedImageURLs = [URL]()
+        
+        func loadImageData(from url: URL) {
+            loadedImageURLs.append(url)
         }
     }
 }
@@ -155,6 +181,10 @@ private extension RestaurantViewController {
     
     func simulateUserInitiatedRestaurantReload() {
         refreshControl?.simulatePullToRefresh()
+    }
+    
+    func simulateRestaurantImageViewVisible(at index: Int = 0) {
+        _ = restaurantView(at: index)
     }
     
     func restaurantView(at row: Int) -> UITableViewCell? {

@@ -9,12 +9,14 @@ import UIKit
 import RestaurantEngine
 
 public final class RestaurantViewController: UITableViewController {
-    private var loader: RestaurantLoader?
+    private var restaurantLoader: RestaurantLoader?
+    private var restaurantImageLoader: RestaurantImageDataLoader?
     private var tableModel = [RestaurantItem]()
     
-    public convenience init(loader: RestaurantLoader) {
+    public convenience init(restaurantLoader: RestaurantLoader, restaurantImageLoader: RestaurantImageDataLoader) {
         self.init()
-        self.loader = loader
+        self.restaurantLoader = restaurantLoader
+        self.restaurantImageLoader = restaurantImageLoader
     }
     
     public override func viewDidLoad() {
@@ -27,7 +29,7 @@ public final class RestaurantViewController: UITableViewController {
     
     @objc private func load() {
         refreshControl?.beginRefreshing()
-        loader?.load { [weak self] result in
+        restaurantLoader?.load { [weak self] result in
             switch result {
             case let .success(restaurant):
                 self?.tableModel = restaurant
@@ -51,6 +53,7 @@ public final class RestaurantViewController: UITableViewController {
         cell.descriptionLabel.text = cellModel.description
         cell.locationLabel.text = cellModel.location
         cell.ratingLabel.text = "\(cellModel.rating)"
+        restaurantImageLoader?.loadImageData(from: cellModel.imageURL)
         return cell
     }
 }
