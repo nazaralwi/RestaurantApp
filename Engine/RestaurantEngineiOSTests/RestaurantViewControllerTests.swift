@@ -65,6 +65,20 @@ class RestaurantViewControllerTests: XCTestCase {
         loader.completeRestaurantLoading(with: [restaurant0, restaurant1], at: 1)
         assertThat(sut, isRendering: [restaurant0, restaurant1])
     }
+
+    func test_loadRestaurantCompletionWithError_doesNotAlterCurrentRenderedRestaurant() {
+        let restaurant0 = makeRestaurant()
+        let restaurant1 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1], at: 0)
+        assertThat(sut, isRendering: [restaurant0, restaurant1])
+        
+        sut.simulateUserInitiatedRestaurantReload()
+        loader.completeRestaurantLoadingWithError(at: 1)
+        assertThat(sut, isRendering: [restaurant0, restaurant1])
+    }
     
     // MARK: - Helpers
     
@@ -117,6 +131,10 @@ class RestaurantViewControllerTests: XCTestCase {
         
         func completeRestaurantLoading(with restaurant: [RestaurantItem] = [], at index: Int = 0) {
             completions[index](.success(restaurant))
+        }
+        
+        func completeRestaurantLoadingWithError(at index: Int = 0) {
+            completions[index](.failure(.connectivity))
         }
     }
 }
