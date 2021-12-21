@@ -109,10 +109,10 @@ class RestaurantViewControllerTests: XCTestCase {
             return XCTFail("Expected \(RestaurantCell.self) instance, got \(String(describing: view)) instead", file: file, line: line)
         }
         
-        XCTAssertEqual(cell.nameLabel.text, restaurant.name, "Expected name text to be \(String(describing: restaurant.name)) for restaurant cell at index \(index)", file: file, line: line)
-        XCTAssertEqual(cell.descriptionLabel.text, restaurant.description, "Expected description text to be \(String(describing: restaurant.description)) for restaurant cell at index \(index)", file: file, line: line)
-        XCTAssertEqual(cell.locationLabel.text, restaurant.city, "Expected location text to be \(String(describing: restaurant.city)) for restaurant cell at index \(index)", file: file, line: line)
-        XCTAssertEqual(cell.ratingLabel.text, "\(restaurant.rating)", "Expected rating text to be \(String(describing: restaurant.rating)) for restaurant cell at index \(index)", file: file, line: line)
+        XCTAssertEqual(cell.nameText, restaurant.name, "Expected name text to be \(String(describing: restaurant.name)) for restaurant cell at index \(index)", file: file, line: line)
+        XCTAssertEqual(cell.descriptionText, restaurant.description, "Expected description text to be \(String(describing: restaurant.description)) for restaurant cell at index \(index)", file: file, line: line)
+        XCTAssertEqual(cell.locationText, restaurant.city, "Expected location text to be \(String(describing: restaurant.city)) for restaurant cell at index \(index)", file: file, line: line)
+        XCTAssertEqual(cell.ratingText, "\(restaurant.rating)", "Expected rating text to be \(String(describing: restaurant.rating)) for restaurant cell at index \(index)", file: file, line: line)
     }
     
     private func makeRestaurant() -> RestaurantItem {
@@ -157,6 +157,24 @@ private extension RestaurantViewController {
     
     var restaurantSection: Int {
         0
+    }
+}
+
+private extension RestaurantCell {
+    var nameText: String? {
+        nameLabel.text
+    }
+    
+    var descriptionText: String? {
+        descriptionLabel.text
+    }
+    
+    var locationText: String? {
+        locationLabel.text
+    }
+    
+    var ratingText: String? {
+        ratingLabel.text
     }
 }
 
