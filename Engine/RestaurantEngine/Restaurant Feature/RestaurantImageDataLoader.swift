@@ -9,4 +9,5 @@ import Foundation
 
 public protocol RestaurantImageDataLoader {
     func loadImageData(from url: URL)
+    func cancelImageDataLoad(from url: URL)
 }

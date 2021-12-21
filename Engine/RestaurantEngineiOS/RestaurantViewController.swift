@@ -56,4 +56,9 @@ public final class RestaurantViewController: UITableViewController {
         restaurantImageLoader?.loadImageData(from: cellModel.imageURL)
         return cell
     }
+    
+    public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellModel = tableModel[indexPath.row]
+        restaurantImageLoader?.cancelImageDataLoad(from: cellModel.imageURL)
+    }
 }

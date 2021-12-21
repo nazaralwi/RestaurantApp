@@ -98,6 +98,23 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected second image URL request once second view also becomes visible")
     }
     
+    func test_restaurantImageView_cancelsImageLoadingWhenNotVisibleAnymore() {
+        let restaurant0 = makeRestaurant(imageURL: URL(string: "https://a-url/images/0")!)
+        let restaurant1 = makeRestaurant(imageURL: URL(string: "https://a-url/images/1")!)
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no cancelled URL request until image is not visible")
+        
+        sut.simulateRestaurantImageViewNotVisible(at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [restaurant0.imageURL], "Expected one cancelled image URL request once first image is not visible anymore")
+        
+        sut.simulateRestaurantImageViewNotVisible(at: 1)
+        XCTAssertEqual(loader.cancelledImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected two cancelled image URL request once second image is not visible anymore")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
@@ -159,9 +176,14 @@ class RestaurantViewControllerTests: XCTestCase {
         // MARK: - RestaurantImageDataLoader
         
         private(set) var loadedImageURLs = [URL]()
+        private(set) var cancelledImageURLs = [URL]()
         
         func loadImageData(from url: URL) {
             loadedImageURLs.append(url)
+        }
+        
+        func cancelImageDataLoad(from url: URL) {
+            cancelledImageURLs.append(url)
         }
     }
 }
@@ -183,8 +205,17 @@ private extension RestaurantViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
-    func simulateRestaurantImageViewVisible(at index: Int = 0) {
-        _ = restaurantView(at: index)
+    @discardableResult
+    func simulateRestaurantImageViewVisible(at index: Int = 0) -> RestaurantCell? {
+        return restaurantView(at: index) as? RestaurantCell
+    }
+    
+    func simulateRestaurantImageViewNotVisible(at row: Int = 0) {
+        let view = simulateRestaurantImageViewVisible(at: row)
+        
+        let dl = tableView.delegate
+        let index = IndexPath(row: row, section: restaurantSection)
+        dl?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
     }
     
     func restaurantView(at row: Int) -> UITableViewCell? {
