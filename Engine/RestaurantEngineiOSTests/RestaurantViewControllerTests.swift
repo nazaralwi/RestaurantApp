@@ -93,8 +93,8 @@ class RestaurantViewControllerTests: XCTestCase {
     }
     
     private func assertThat(_ sut: RestaurantViewController, isRendering restaurants: [RestaurantItem], file: StaticString = #filePath, line: UInt = #line) {
-        guard sut.tableView.numberOfRows(inSection: 0) == restaurants.count else {
-            return XCTFail("Expected \(restaurants.count) restaurants, got \(sut.tableView.numberOfRows(inSection: 0)) instead", file: file, line: line)
+        guard sut.numberOfRenderedRestaurantViews == restaurants.count else {
+            return XCTFail("Expected \(restaurants.count) restaurants, got \(sut.numberOfRenderedRestaurantViews) instead", file: file, line: line)
         }
         
         restaurants.enumerated().forEach { index, restaurant in
@@ -143,6 +143,10 @@ class RestaurantViewControllerTests: XCTestCase {
 private extension RestaurantViewController {
     var isShowingLoadingIndicator: Bool {
         refreshControl?.isRefreshing == true
+    }
+    
+    var numberOfRenderedRestaurantViews: Int {
+        tableView.numberOfRows(inSection: restaurantSection)
     }
 
     func simulateUserInitiatedRestaurantReload() {
