@@ -111,12 +111,12 @@ class RestaurantViewControllerTests: XCTestCase {
         
         XCTAssertEqual(cell.nameText, restaurant.name, "Expected name text to be \(String(describing: restaurant.name)) for restaurant cell at index \(index)", file: file, line: line)
         XCTAssertEqual(cell.descriptionText, restaurant.description, "Expected description text to be \(String(describing: restaurant.description)) for restaurant cell at index \(index)", file: file, line: line)
-        XCTAssertEqual(cell.locationText, restaurant.city, "Expected location text to be \(String(describing: restaurant.city)) for restaurant cell at index \(index)", file: file, line: line)
+        XCTAssertEqual(cell.locationText, restaurant.location, "Expected location text to be \(String(describing: restaurant.location)) for restaurant cell at index \(index)", file: file, line: line)
         XCTAssertEqual(cell.ratingText, "\(restaurant.rating)", "Expected rating text to be \(String(describing: restaurant.rating)) for restaurant cell at index \(index)", file: file, line: line)
     }
     
     private func makeRestaurant() -> RestaurantItem {
-        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", pictureId: 0, city: "a city", rating: 0.0)
+        RestaurantItem(id: "12345", name: "a restaurant", description: "a description", location: "a location", rating: 0.0, imageURL: URL(string: "https://restaurant-api.dicoding.dev/images/medium/\(0)")!)
     }
     
     class LoaderSpy: RestaurantLoader {

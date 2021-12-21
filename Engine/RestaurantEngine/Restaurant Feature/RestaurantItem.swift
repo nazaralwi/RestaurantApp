@@ -11,16 +11,16 @@ public struct RestaurantItem: Equatable {
     public let id: String
     public let name: String
     public let description: String
-    public let pictureId: Int
-    public let city: String
+    public let location: String
     public let rating: Double
+    public let imageURL: URL
     
-    public init(id: String, name: String, description: String, pictureId: Int, city: String, rating: Double) {
+    public init(id: String, name: String, description: String, location: String, rating: Double, imageURL: URL) {
         self.id = id
         self.name = name
         self.description = description
-        self.pictureId = pictureId
-        self.city = city
+        self.location = location
         self.rating = rating
+        self.imageURL = imageURL
     }
 }

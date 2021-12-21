@@ -49,7 +49,7 @@ public final class RestaurantViewController: UITableViewController {
         let cell = RestaurantCell()
         cell.nameLabel.text = cellModel.name
         cell.descriptionLabel.text = cellModel.description
-        cell.locationLabel.text = cellModel.city
+        cell.locationLabel.text = cellModel.location
         cell.ratingLabel.text = "\(cellModel.rating)"
         return cell
     }
