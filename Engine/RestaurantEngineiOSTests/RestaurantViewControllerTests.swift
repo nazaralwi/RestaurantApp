@@ -36,18 +36,19 @@ class RestaurantViewControllerTests: XCTestCase {
         
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indicator once view is loaded")
         
-        loader.completeRestaurantLoading()
-        
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading is completed")
+        loader.completeRestaurantLoading(at: 0)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once loading completes successfully")
         
         sut.simulateUserInitiatedRestaurantReload()
-        
         XCTAssertTrue(sut.isShowingLoadingIndicator, "Expected loading indiactor once user initiates a reload")
         
         sut.simulateUserInitiatedRestaurantReload()
-        loader.completeRestaurantLoading()
+        loader.completeRestaurantLoading(at: 1)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes successfully")
         
-        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading is completed")
+        sut.simulateUserInitiatedRestaurantReload()
+        loader.completeRestaurantLoadingWithError(at: 2)
+        XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user initiated loading completes with error")
     }
         
     func test_loadRestaurantCompletion_rendersSuccessfullyLoadedRestaurant() {
