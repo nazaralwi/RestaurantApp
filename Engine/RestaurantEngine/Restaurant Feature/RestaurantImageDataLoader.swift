@@ -7,7 +7,10 @@
 
 import Foundation
 
+public protocol RestaurantImageDataLoaderTask {
+    func cancel()
+}
+
 public protocol RestaurantImageDataLoader {
-    func loadImageData(from url: URL)
-    func cancelImageDataLoad(from url: URL)
+    func loadImageData(from url: URL) -> RestaurantImageDataLoaderTask
 }

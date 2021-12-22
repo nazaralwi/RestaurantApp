@@ -175,15 +175,22 @@ class RestaurantViewControllerTests: XCTestCase {
         
         // MARK: - RestaurantImageDataLoader
         
+        private struct TaskSpy: RestaurantImageDataLoaderTask {
+            let cancelCallback: () -> Void
+            
+            func cancel() {
+                cancelCallback()
+            }
+        }
+        
         private(set) var loadedImageURLs = [URL]()
         private(set) var cancelledImageURLs = [URL]()
         
-        func loadImageData(from url: URL) {
+        func loadImageData(from url: URL) -> RestaurantImageDataLoaderTask {
             loadedImageURLs.append(url)
-        }
-        
-        func cancelImageDataLoad(from url: URL) {
-            cancelledImageURLs.append(url)
+            return TaskSpy { [weak self] in
+                self?.cancelledImageURLs.append(url)
+            }
         }
     }
 }

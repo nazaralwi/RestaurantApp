@@ -12,6 +12,7 @@ public final class RestaurantViewController: UITableViewController {
     private var restaurantLoader: RestaurantLoader?
     private var restaurantImageLoader: RestaurantImageDataLoader?
     private var tableModel = [RestaurantItem]()
+    private var tasks = [IndexPath: RestaurantImageDataLoaderTask]()
     
     public convenience init(restaurantLoader: RestaurantLoader, restaurantImageLoader: RestaurantImageDataLoader) {
         self.init()
@@ -53,12 +54,12 @@ public final class RestaurantViewController: UITableViewController {
         cell.descriptionLabel.text = cellModel.description
         cell.locationLabel.text = cellModel.location
         cell.ratingLabel.text = "\(cellModel.rating)"
-        restaurantImageLoader?.loadImageData(from: cellModel.imageURL)
+        tasks[indexPath] = restaurantImageLoader?.loadImageData(from: cellModel.imageURL)
         return cell
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cellModel = tableModel[indexPath.row]
-        restaurantImageLoader?.cancelImageDataLoad(from: cellModel.imageURL)
+        tasks[indexPath]?.cancel()
+        tasks[indexPath] = nil
     }
 }
