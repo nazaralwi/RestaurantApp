@@ -12,6 +12,7 @@
 		3D0EADEB276058E200D1EAB4 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; platformFilter = ios; };
 		3D0EADEC276058E200D1EAB4 /* RestaurantEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D17F98427686CF3005532F4 /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17F98327686CF3005532F4 /* RestaurantViewController.swift */; };
+		3D2D7D242772DCB400142A13 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D7D232772DCB400142A13 /* UIView+Shimmering.swift */; };
 		3D2E69C5276B0BC100868C6D /* RestaurantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E69C4276B0BC100868C6D /* RestaurantCell.swift */; };
 		3D375608274C9574003936DE /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */; };
 		3D42ABCF2743AD3C009A9E76 /* RestaurantEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */; };
@@ -79,6 +80,7 @@
 		3D0EADD6276050DC00D1EAB4 /* RestaurantViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewControllerTests.swift; sourceTree = "<group>"; };
 		3D0EADD8276053A800D1EAB4 /* RestaurantLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantLoader.swift; sourceTree = "<group>"; };
 		3D17F98327686CF3005532F4 /* RestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
+		3D2D7D232772DCB400142A13 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 		3D2E69C4276B0BC100868C6D /* RestaurantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCell.swift; sourceTree = "<group>"; };
 		3D375607274C9574003936DE /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		3D42ABC62743AD3B009A9E76 /* RestaurantEngine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RestaurantEngine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +147,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3D2D7D222772DC9E00142A13 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				3D2D7D232772DCB400142A13 /* UIView+Shimmering.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		3D42ABBC2743AD3B009A9E76 = {
@@ -239,6 +249,7 @@
 		3DE47344275788410035E99D /* RestaurantEngineiOS */ = {
 			isa = PBXGroup;
 			children = (
+				3D2D7D222772DC9E00142A13 /* Animations */,
 				3D2E69C4276B0BC100868C6D /* RestaurantCell.swift */,
 				3D17F98327686CF3005532F4 /* RestaurantViewController.swift */,
 			);
@@ -494,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D2D7D242772DCB400142A13 /* UIView+Shimmering.swift in Sources */,
 				3D2E69C5276B0BC100868C6D /* RestaurantCell.swift in Sources */,
 				3D17F98427686CF3005532F4 /* RestaurantViewController.swift in Sources */,
 			);

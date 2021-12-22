@@ -115,6 +115,28 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.cancelledImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected two cancelled image URL request once second image is not visible anymore")
     }
     
+    func test_restaurantImageView_showsLoadingIndicatorWhileLoadImage() {
+        let restaurant0 = makeRestaurant()
+        let restaurant1 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        let view0 = sut.simulateRestaurantImageViewVisible(at: 0)
+        let view1 = sut.simulateRestaurantImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.isShowingImageLoadingIndicator, true, "Expected loading indicator while loading first image")
+        XCTAssertEqual(view1?.isShowingImageLoadingIndicator, true, "Expected loading indicator while loading second image")
+        
+        loader.compeleteRestaurantImageLoading(at: 0)
+        XCTAssertEqual(view0?.isShowingImageLoadingIndicator, false, "Expected loading indicator while loading first image")
+        XCTAssertEqual(view1?.isShowingImageLoadingIndicator, true, "Expected loading indicator while loading second image")
+        
+        loader.compeleteRestaurantImageLoading(at: 1)
+        XCTAssertEqual(view0?.isShowingImageLoadingIndicator, false, "Expected loading indicator while loading first image")
+        XCTAssertEqual(view1?.isShowingImageLoadingIndicator, false, "Expected loading indicator while loading second image")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
@@ -174,22 +196,34 @@ class RestaurantViewControllerTests: XCTestCase {
         }
         
         // MARK: - RestaurantImageDataLoader
+        private var restaurantImageRequests = [(url: URL, completion: (RestaurantImageDataLoader.Result) -> Void)]()
+        private(set) var cancelledImageURLs = [URL]()
+        
+        var loadedImageURLs: [URL] {
+            restaurantImageRequests.map { $0.url }
+        }
+        
+        func loadImageData(from url: URL, completion: @escaping (RestaurantImageDataLoader.Result) -> Void) -> RestaurantImageDataLoaderTask {
+            restaurantImageRequests.append((url, completion))
+            return TaskSpy { [weak self] in
+                self?.cancelledImageURLs.append(url)
+            }
+        }
+        
+        func compeleteRestaurantImageLoading(with imageData: Data = Data(), at index: Int = 0) {
+            restaurantImageRequests[index].completion(.success(imageData))
+        }
+        
+        func compeleteRestaurantImageLoadingWithError(at index: Int = 0) {
+            let error = NSError(domain: "an error", code: 0)
+            restaurantImageRequests[index].completion(.failure(error))
+        }
         
         private struct TaskSpy: RestaurantImageDataLoaderTask {
             let cancelCallback: () -> Void
             
             func cancel() {
                 cancelCallback()
-            }
-        }
-        
-        private(set) var loadedImageURLs = [URL]()
-        private(set) var cancelledImageURLs = [URL]()
-        
-        func loadImageData(from url: URL) -> RestaurantImageDataLoaderTask {
-            loadedImageURLs.append(url)
-            return TaskSpy { [weak self] in
-                self?.cancelledImageURLs.append(url)
             }
         }
     }
@@ -247,6 +281,10 @@ private extension RestaurantCell {
     
     var ratingText: String? {
         ratingLabel.text
+    }
+    
+    var isShowingImageLoadingIndicator: Bool {
+        imageContainer.isShimmering
     }
 }
 
