@@ -161,6 +161,35 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.renderedImage, imageData1, "Expected second rendered image after loading second image completed")
     }
     
+    func test_restaurantImageView_showsRetryActionOnImageURLLoadFailed() {
+        let restaurant0 = makeRestaurant()
+        let restaurant1 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        let view0 = sut.simulateRestaurantImageViewVisible(at: 0)
+        let view1 = sut.simulateRestaurantImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action while loading first image")
+        XCTAssertEqual(view1?.isShowingRetryAction, false, "Expected no retry action while loading second image")
+        
+        let imageData0 = UIImage.make(withColor: .red).pngData()!
+        loader.compeleteRestaurantImageLoading(with: imageData0, at: 0)
+        XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action while loading first image")
+        XCTAssertEqual(view1?.isShowingRetryAction, false, "Expected no retry action while loading second image")
+
+        loader.compeleteRestaurantImageLoadingWithError(at: 1)
+        XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action while loading first image")
+        XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected retry action once loading second image completes with error")
+        
+        sut.simulateUserInitiatedRestaurantReload()
+        loader.compeleteRestaurantImageLoadingWithError(at: 0)
+        loader.compeleteRestaurantImageLoadingWithError(at: 1)
+        XCTAssertEqual(view0?.isShowingRetryAction, true, "Expected retry action once loading first image completes with error")
+        XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected retry action once loading second image completes with error")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
@@ -309,6 +338,10 @@ private extension RestaurantCell {
     
     var isShowingImageLoadingIndicator: Bool {
         imageContainer.isShimmering
+    }
+    
+    var isShowingRetryAction: Bool {
+        !imageRetryButton.isHidden
     }
     
     var renderedImage: Data? {

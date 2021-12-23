@@ -15,4 +15,5 @@ public class RestaurantCell: UITableViewCell {
     public let ratingLabel = UILabel()
     public let image = UIImageView()
     public let imageContainer = UIView()
+    public let imageRetryButton = UIButton()
 }

@@ -55,13 +55,14 @@ public final class RestaurantViewController: UITableViewController {
         cell.locationLabel.text = cellModel.location
         cell.ratingLabel.text = "\(cellModel.rating)"
         cell.imageView?.image = nil
+        cell.imageRetryButton.isHidden = true
         cell.imageContainer.startShimmering()
         tasks[indexPath] = restaurantImageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] result in
             switch result {
             case let .success(data):
                 cell?.imageView?.image = UIImage(data: data)
             case .failure:
-                break
+                cell?.imageRetryButton.isHidden = false
             }
             
             cell?.imageContainer.stopShimmering()
