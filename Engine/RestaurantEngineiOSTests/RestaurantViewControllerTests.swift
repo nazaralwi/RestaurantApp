@@ -190,6 +190,30 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected retry action once loading second image completes with error")
     }
     
+    func test_restaurantImageView_showsRetryActionOnInvalidImageData() {
+        let restaurant0 = makeRestaurant()
+        let restaurant1 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        let view0 = sut.simulateRestaurantImageViewVisible(at: 0)
+        let view1 = sut.simulateRestaurantImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.isShowingRetryAction, false, "Expected no retry action while loading first image")
+        XCTAssertEqual(view1?.isShowingRetryAction, false, "Expected no retry action while loading second image")
+        
+        let invalidImageData0 = Data("invalid data".utf8)
+        loader.compeleteRestaurantImageLoading(with: invalidImageData0, at: 0)
+        XCTAssertEqual(view0?.isShowingRetryAction, true, "Expected retry action once loading first image completes with invalid image data")
+        XCTAssertEqual(view1?.isShowingRetryAction, false, "Expected no retry action while loading second image")
+        
+        let invalidImageData1 = Data("invalid data".utf8)
+        loader.compeleteRestaurantImageLoading(with: invalidImageData1, at: 1)
+        XCTAssertEqual(view0?.isShowingRetryAction, true, "Expected retry action once loading first image completes with invalid image data")
+        XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected no retry action while loading second image")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {

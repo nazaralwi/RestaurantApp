@@ -60,7 +60,9 @@ public final class RestaurantViewController: UITableViewController {
         tasks[indexPath] = restaurantImageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] result in
             switch result {
             case let .success(data):
-                cell?.imageView?.image = UIImage(data: data)
+                let image = UIImage(data: data) ?? nil
+                cell?.imageView?.image = image
+                cell?.imageRetryButton.isHidden = image != nil
             case .failure:
                 cell?.imageRetryButton.isHidden = false
             }
