@@ -137,6 +137,30 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.isShowingImageLoadingIndicator, false, "Expected loading indicator while loading second image")
     }
     
+    func test_restaurantImageView_renderedImageFromLoadedURL() {
+        let restaurant0 = makeRestaurant()
+        let restaurant1 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        let view0 = sut.simulateRestaurantImageViewVisible(at: 0)
+        let view1 = sut.simulateRestaurantImageViewVisible(at: 1)
+        XCTAssertEqual(view0?.renderedImage, .none, "Expected no first rendered image while loading first image")
+        XCTAssertEqual(view1?.renderedImage, .none, "Expected no second rendered image while loading second image")
+        
+        let imageData0 = UIImage.make(withColor: .red).pngData()!
+        loader.compeleteRestaurantImageLoading(with: imageData0, at: 0)
+        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected first rendered image after loading first image completed")
+        XCTAssertEqual(view1?.renderedImage, .none, "Expected no second rendered image while loading second image")
+
+        let imageData1 = UIImage.make(withColor: .purple).pngData()!
+        loader.compeleteRestaurantImageLoading(with: imageData1, at: 1)
+        XCTAssertEqual(view0?.renderedImage, imageData0, "Expected first rendered image after loading first image completed")
+        XCTAssertEqual(view1?.renderedImage, imageData1, "Expected second rendered image after loading second image completed")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
@@ -286,6 +310,10 @@ private extension RestaurantCell {
     var isShowingImageLoadingIndicator: Bool {
         imageContainer.isShimmering
     }
+    
+    var renderedImage: Data? {
+        imageView?.image?.pngData()
+    }
 }
 
 private extension UIRefreshControl {
@@ -295,5 +323,18 @@ private extension UIRefreshControl {
                 (target as NSObject).perform(Selector($0))
             })
         })
+    }
+}
+
+private extension UIImage {
+    static func make(withColor color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img!
     }
 }

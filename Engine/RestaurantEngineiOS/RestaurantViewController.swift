@@ -54,8 +54,16 @@ public final class RestaurantViewController: UITableViewController {
         cell.descriptionLabel.text = cellModel.description
         cell.locationLabel.text = cellModel.location
         cell.ratingLabel.text = "\(cellModel.rating)"
+        cell.imageView?.image = nil
         cell.imageContainer.startShimmering()
-        tasks[indexPath] = restaurantImageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] _ in
+        tasks[indexPath] = restaurantImageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] result in
+            switch result {
+            case let .success(data):
+                cell?.imageView?.image = UIImage(data: data)
+            case .failure:
+                break
+            }
+            
             cell?.imageContainer.stopShimmering()
         }
         return cell
