@@ -133,6 +133,23 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.cancelledImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected two cancelled image URL request once second image is not visible anymore")
     }
     
+    func test_restaurantImageView_cancelsImageLoadingWhenNotNearVisibleAnymore() {
+        let restaurant0 = makeRestaurant(imageURL: URL(string: "https://a-url/images/0")!)
+        let restaurant1 = makeRestaurant(imageURL: URL(string: "https://a-url/images/1")!)
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no cancelled URL request until image is not visible")
+        
+        sut.simulateRestaurantImageViewNotNearVisible(at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [restaurant0.imageURL], "Expected one cancelled image URL request once first image is not visible anymore")
+        
+        sut.simulateRestaurantImageViewNotNearVisible(at: 1)
+        XCTAssertEqual(loader.cancelledImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected two cancelled image URL request once second image is not visible anymore")
+    }
+    
     func test_restaurantImageView_showsLoadingIndicatorWhileLoadImage() {
         let restaurant0 = makeRestaurant()
         let restaurant1 = makeRestaurant()
@@ -376,6 +393,14 @@ private extension RestaurantViewController {
         let dl = tableView.delegate
         let index = IndexPath(row: row, section: restaurantSection)
         dl?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
+    }
+    
+    func simulateRestaurantImageViewNotNearVisible(at row: Int = 0) {
+        simulateRestaurantImageViewNearVisible(at: row)
+        
+        let ds = tableView.prefetchDataSource
+        let index = IndexPath(row: row, section: restaurantSection)
+        ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
     func restaurantView(at row: Int) -> UITableViewCell? {
