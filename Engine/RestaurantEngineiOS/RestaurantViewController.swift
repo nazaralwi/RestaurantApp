@@ -57,18 +57,27 @@ public final class RestaurantViewController: UITableViewController {
         cell.imageView?.image = nil
         cell.imageRetryButton.isHidden = true
         cell.imageContainer.startShimmering()
-        tasks[indexPath] = restaurantImageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] result in
-            switch result {
-            case let .success(data):
-                let image = UIImage(data: data) ?? nil
-                cell?.imageView?.image = image
-                cell?.imageRetryButton.isHidden = image != nil
-            case .failure:
-                cell?.imageRetryButton.isHidden = false
-            }
+        
+        let loadImage = { [weak self, weak cell] in
+            guard let self = self else { return }
             
-            cell?.imageContainer.stopShimmering()
+            self.tasks[indexPath] = self.restaurantImageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] result in
+                switch result {
+                case let .success(data):
+                    let image = UIImage(data: data) ?? nil
+                    cell?.imageView?.image = image
+                    cell?.imageRetryButton.isHidden = image != nil
+                case .failure:
+                    cell?.imageRetryButton.isHidden = false
+                }
+                
+                cell?.imageContainer.stopShimmering()
+            }
         }
+        
+        cell.onRetry = loadImage
+        loadImage()
+        
         return cell
     }
     

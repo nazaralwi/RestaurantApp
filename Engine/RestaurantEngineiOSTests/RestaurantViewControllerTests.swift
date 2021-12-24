@@ -214,6 +214,24 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected no retry action while loading second image")
     }
     
+    func test_restaurantImageView_retriesImageLoadOnRetryAction() {
+        let restaurant0 = makeRestaurant()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0])
+        
+        let view0 = sut.simulateRestaurantImageViewVisible(at: 0)
+        XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL], "Expected first loaded image url when image view is visible")
+        
+        let invalidImageData0 = Data("invalid data".utf8)
+        loader.compeleteRestaurantImageLoading(with: invalidImageData0, at: 0)
+        XCTAssertEqual(view0?.isShowingRetryAction, true, "Expected retry action once loading image completes with invalid image data")
+        
+        view0?.imageRetryButton.simulateTap()
+        XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL, restaurant0.imageURL], "Expected second loaded image url after retry action")
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RestaurantViewController, loader: LoaderSpy) {
@@ -377,6 +395,16 @@ private extension UIRefreshControl {
     func simulatePullToRefresh() {
         allTargets.forEach({ target in
             actions(forTarget: target, forControlEvent: .valueChanged)?.forEach({
+                (target as NSObject).perform(Selector($0))
+            })
+        })
+    }
+}
+
+private extension UIButton {
+    func simulateTap() {
+        allTargets.forEach({ target in
+            actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach({
                 (target as NSObject).perform(Selector($0))
             })
         })

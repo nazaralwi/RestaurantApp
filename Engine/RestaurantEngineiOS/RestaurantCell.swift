@@ -15,5 +15,15 @@ public class RestaurantCell: UITableViewCell {
     public let ratingLabel = UILabel()
     public let image = UIImageView()
     public let imageContainer = UIView()
-    public let imageRetryButton = UIButton()
+    private(set) public lazy var imageRetryButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    var onRetry: (() -> Void)?
+    
+    @objc private func retryButtonTapped() {
+        onRetry?()
+    }
 }
