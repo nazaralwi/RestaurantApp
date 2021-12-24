@@ -98,6 +98,24 @@ class RestaurantViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected second image URL request once second view also becomes visible")
     }
     
+    func test_restaurantImageView_loadsImageURLWhenNearVisible() {
+        let restaurant0 = makeRestaurant(imageURL: URL(string: "https://a-url/images/0")!)
+        let restaurant1 = makeRestaurant(imageURL: URL(string: "https://a-url/images/1")!)
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeRestaurantLoading(with: [restaurant0, restaurant1])
+        
+        XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image URL request until views become near visible")
+        
+        sut.simulateRestaurantImageViewNearVisible(at: 0)
+        XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL], "Expected first image URL request once first view becomes near visible")
+        
+        sut.simulateRestaurantImageViewNearVisible(at: 1)
+        XCTAssertEqual(loader.loadedImageURLs, [restaurant0.imageURL, restaurant1.imageURL], "Expected second image URL request once second view also becomes near visible")
+    }
+
+    
     func test_restaurantImageView_cancelsImageLoadingWhenNotVisibleAnymore() {
         let restaurant0 = makeRestaurant(imageURL: URL(string: "https://a-url/images/0")!)
         let restaurant1 = makeRestaurant(imageURL: URL(string: "https://a-url/images/1")!)
@@ -344,6 +362,12 @@ private extension RestaurantViewController {
     @discardableResult
     func simulateRestaurantImageViewVisible(at index: Int = 0) -> RestaurantCell? {
         return restaurantView(at: index) as? RestaurantCell
+    }
+    
+    func simulateRestaurantImageViewNearVisible(at row: Int = 0) {
+        let ds = tableView.prefetchDataSource
+        let index = IndexPath(row: row, section: restaurantSection)
+        ds?.tableView(tableView, prefetchRowsAt: [index])
     }
     
     func simulateRestaurantImageViewNotVisible(at row: Int = 0) {
