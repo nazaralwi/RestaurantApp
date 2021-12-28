@@ -35,6 +35,16 @@ class RemoteRestaurantImageDataLoaderTests: XCTestCase {
         
         XCTAssertEqual(client.requestedURLs, [url])
     }
+
+    func test_loadImageDataTwice_requestsDataFromURLTwice() {
+        let (sut, client) = makeSUT()
+        let url = URL(string: "https://a-url.dev/images/medium/")!
+        
+        sut.loadImageData(from: url)
+        sut.loadImageData(from: url)
+        
+        XCTAssertEqual(client.requestedURLs, [url, url])
+    }
     
     // - MARK: Helpers
     
