@@ -22,15 +22,13 @@ class RemoteRestaurantImageDataLoader {
 
 class RemoteRestaurantImageDataLoaderTests: XCTestCase {
     func test_init_doesNotPerformAnyURLRequest() {
-        let client = HTTPClientSpy()
-        _ = RemoteRestaurantImageDataLoader(client: client)
+        let (_, client) = makeSUT()
         
         XCTAssertEqual(client.requestedURLs, [])
     }
     
     func test_loadImageData_requestsDataFromURL() {
-        let client = HTTPClientSpy()
-        let sut = RemoteRestaurantImageDataLoader(client: client)
+        let (sut, client) = makeSUT()
         let url = URL(string: "https://a-url.dev/images/medium/")!
         
         sut.loadImageData(from: url)
@@ -39,6 +37,16 @@ class RemoteRestaurantImageDataLoaderTests: XCTestCase {
     }
     
     // - MARK: Helpers
+    
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteRestaurantImageDataLoader, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = RemoteRestaurantImageDataLoader(client: client)
+        
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        
+        return (sut, client)
+    }
     
     private class HTTPClientSpy: HTTPClient {
         var requestedURLs = [URL]()
