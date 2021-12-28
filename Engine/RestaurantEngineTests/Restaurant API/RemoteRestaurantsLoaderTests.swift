@@ -130,16 +130,16 @@ class RemoteRestaurantsLoaderTests: XCTestCase {
             id: id,
             name: name,
             description: description,
-            pictureId: pictureId,
-            city: city,
-            rating: rating)
+            location: city,
+            rating: rating,
+            imageURL: URL(string: "https://restaurant-api.dicoding.dev/images/medium/\(pictureId)")!)
         
         let item1JSON = [
             "id": item.id,
             "name": item.name,
             "description": item.description,
-            "pictureId": "\(item.pictureId)",
-            "city": item.city,
+            "pictureId": "\(pictureId)",
+            "city": item.location,
             "rating": item.rating
         ] as [String : Any]
 

@@ -66,7 +66,7 @@ public class RemoteRestaurantsLoader: RestaurantLoader {
     
     private static func map(_ restaurants: [Root]) -> [RestaurantItem] {
         restaurants.map { restaurant in
-            RestaurantItem(id: restaurant.id, name: restaurant.name, description: restaurant.description, location: restaurant.city, rating: restaurant.rating, imageURL: URL(string: "https://a-url/images/\(restaurant.pictureId)")!)
+            RestaurantItem(id: restaurant.id, name: restaurant.name, description: restaurant.description, location: restaurant.city, rating: restaurant.rating, imageURL: URL(string: "https://restaurant-api.dicoding.dev/images/medium/\(restaurant.pictureId)")!)
         }
     }
 }
